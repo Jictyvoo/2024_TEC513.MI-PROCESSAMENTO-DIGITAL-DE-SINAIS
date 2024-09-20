@@ -3,9 +3,10 @@ setup; % This will call setup.m
 
 % Continue with main code
 [xt, fc, phi, x, t] = signal(2, 10, 3000);
-
-discoverFrequency = @(t) (length(t) >= 2) * (1 / abs(t(2) - t(1))) + (length(t) < 2) * 0;
-Fs = discoverFrequency(t) / 2; % amostras por segundo
+% xt = sin(2 * pi * t);
+% discoverFrequency = @(t) (length(t) >= 2) * (1 / abs(t(2) - t(1))) + (length(t) < 2) * 0;
+% f_max = discoverFrequency(t) / 2;
+f_max = max(fc); % Max signal frequency
 
 plt_rows = 3;
 plt_cols = 2;
@@ -14,9 +15,9 @@ phi = phi(phi != 0);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem IDEAL
 %
-[impulse_train, yt, f, Yjw] = idealModulation(xt, t, Fs);
+[impulse_train, yt, f, Yjw] = idealModulation(xt, t, f_max * 2);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, Fs);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
 
 % PLOTS
 figure; % Cria uma nova figura para os gráficos
@@ -44,9 +45,9 @@ plotSamplingResults(t, xt, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstru
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem NATURAL
 %
-[pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs, min(phi));
+[pulse_train, yt, f, Yjw] = naturalModulation(xt, t, f_max * 2, min(phi));
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, Fs);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
 
 # PLOTS
 figure; % Cria uma nova figura para os gráficos
@@ -74,9 +75,9 @@ plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstruct
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem FLAT-TOP
 %
-[pulse_train, yt, f, Yjw] = flattopModulation(xt, t, Fs, min(phi));
+[pulse_train, yt, f, Yjw] = flattopModulation(xt, t, f_max*2, min(phi));
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, Fs);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max/100);
 
 # PLOTS
 figure; % Cria uma nova figura para os gráficos
