@@ -1,3 +1,7 @@
+% First, set up the environment by installing/loading necessary packages
+setup; % This will call setup.m
+
+% Continue with main code
 [xt, fc, phi, x, t] = signal(2, 10, 3000);
 
 discoverFrequency = @(t) (length(t) >= 2) * (1 / abs(t(2) - t(1))) + (length(t) < 2) * 0;
