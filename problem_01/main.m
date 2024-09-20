@@ -8,14 +8,24 @@ setup; % This will call setup.m
 % f_max = discoverFrequency(t) / 2;
 f_max = max(fc); % Max signal frequency
 
-plt_rows = 3;
-plt_cols = 2;
+% Definir a frequência de amostragem (Fs)
+Fs = 2 * f_max; % Definimos a frequência de amostragem como o dobro da frequência máxima para evitar aliasing
+
+% WITHOUT FILTER
+xt_filtered = xt;
+% Aplicar filtro Butterworth passa-baixa
+f_cutoff = f_max; % A frequência de corte será a frequência máxima do sinal
+xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
 % Remove zeros from the array
 phi = phi(phi != 0);
+%
+%
+plt_rows = 3;
+plt_cols = 2;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem IDEAL
 %
-[impulse_train, yt, f, Yjw] = idealModulation(xt, t, f_max * 2);
+[impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
 
@@ -45,7 +55,7 @@ plotSamplingResults(t, xt, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstru
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem NATURAL
 %
-[pulse_train, yt, f, Yjw] = naturalModulation(xt, t, f_max * 2, min(phi));
+[pulse_train, yt, f, Yjw] = naturalModulation(xt_filtered, t, Fs, min(phi));
 # FILTRANDO O SINAL para reconstrução
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
 
@@ -75,7 +85,7 @@ plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstruct
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem FLAT-TOP
 %
-[pulse_train, yt, f, Yjw] = flattopModulation(xt, t, f_max*2, min(phi));
+[pulse_train, yt, f, Yjw] = flattopModulation(xt_filtered, t, Fs, min(phi));
 # FILTRANDO O SINAL para reconstrução
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max/100);
 
