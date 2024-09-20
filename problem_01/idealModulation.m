@@ -19,7 +19,9 @@ function [impulse_train, yt, f, Yjw] = idealModulation(xt, t, Fs)
     t_size = size(t);
     % Modulação PAM com trem de impulsos
     impulse_train = zeros(size(t));
+    time_pass = abs(t(2) - t(1))
     for k = min(t):1 / (2 * Fs):max(t) + 1
+        k = round(k / time_pass) * time_pass;
         impulse_train = impulse_train + dirac_impulse(t - k);
     end
 
