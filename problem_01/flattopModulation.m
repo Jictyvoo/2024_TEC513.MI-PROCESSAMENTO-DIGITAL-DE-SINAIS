@@ -1,35 +1,43 @@
-function [pulse_train, yt, f, Yjw] = flattopModulation(xt, t, Fs)
-    % Função que realiza a modulação PAM (Pulse Amplitude Modulation) com trem de impulsos
-    % e a FFT (Fast Fourier Transform) do sinal modulado.
+function [pulse_train, yt, f, Yjw] = flattopModulation(xt, t, Fs, pulse_width)
+    % Função que realiza a amostragem flat-top com trem de impulsos retangulares
     %
     % Argumentos:
     % xt          - Sinal de entrada (vetor de amostras no tempo)
     % t           - Vetor de tempo correspondente ao sinal de entrada
     % Fs          - Frequência de amostragem do sinal
+    % pulse_width - Largura do Pulso (em segundos)
     %
     % Saídas:
     % pulse_train - Trem de pulsos usado para modulação (retângulos)
-    % yt          - Sinal modulado por amplitude com o trem de impulsos (PAM)
+    % yt          - Sinal modulado flat-top (mantém o valor constante durante o pulso)
     % f           - Eixo de frequências correspondente à FFT
     % Yjw         - FFT do sinal modulado (no domínio da frequência)
-    pulse_frequency = 1 / Fs;
-    pulse_width = 0.2 * (pulse_frequency);
-    pulse_time = min(t):pulse_frequency:max(t) + 1;
-    pulse_train = pulstran(t, pulse_time, "rectpuls", pulse_width);
 
-    % Modulação
-    period_sample = 1; % Número de amostras por período da onda quadrada
-    on_sample = round(period_sample * pulse_width / 100); % Amostras no estado "on"
-    indexes = 1:period_sample:length(t); % Índices de início dos ciclos "on"
+    % Frequência dos pulsos
+    pulse_frequency = Fs;
+    pulse_width = 0.2 * (1 / Fs);
 
-    yt = zeros(1, length(t)); % Inicializa vetor PAM
-    yt(indexes) = xt(indexes); % Atribui valores do sinal modulante para o início dos pulsos
-    for i = 1:length(indexes)% Preenche os ciclos "on" com o valor correspondente do sinal modulante
-        yt(indexes(i):indexes(i) + on_sample - 1) = xt(indexes(i));
+    % Gerar trem de pulsos
+    pulse_time = min(t):1 / pulse_frequency:max(t);
+    pulse_train = pulstran(t, pulse_time, "rectpuls", pulse_width); % Trem de pulsos retangulares
+    
+    % Modulação flat-top - manter o valor constante durante o pulso
+    yt = zeros(1, length(t));  % Inicializar vetor de saída
+    for i = 1:length(pulse_time)-1
+        % Identificar o intervalo de cada pulso
+        start_idx = find(t >= pulse_time(i), 1);
+        end_idx = find(t >= pulse_time(i+1), 1);
+        
+        if isempty(end_idx)
+            end_idx = length(t); % Se o pulso for o último, ir até o final do vetor
+        end
+        
+        % Manter o valor do sinal original durante todo o intervalo do pulso
+        yt(start_idx:end_idx) = xt(start_idx);  
     end
 
-    % FFT da modulação PAM
-    N = length(yt); % Número de pontos do sinal
-    f = (-N / 2:(N / 2) - 1) * (Fs / N); % Eixo de frequências (ajustado para Fs)
-    Yjw = fftshift(fft(yt)); % FFT do sinal PAM com trem de pulsos
+    % FFT da modulação flat-top
+    N = length(yt); 
+    f = (-N / 2:(N / 2) - 1) * (Fs / N); % Eixo de frequências para a FFT
+    Yjw = fftshift(fft(yt)); % Transformada rápida de Fourier (FFT)
 end
