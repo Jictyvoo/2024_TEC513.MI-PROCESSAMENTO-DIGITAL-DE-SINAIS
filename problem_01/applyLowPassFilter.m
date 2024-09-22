@@ -1,7 +1,6 @@
-function [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, Fs)
+function [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, cutoff_freq)
     % FILTRANDO O SINAL
-    cutoff_freq = Fs / 2; % Filtro passa-baixa (ajuste de acordo com a amostragem)
-    mask = abs(f) < cutoff_freq; % Janela do filtro passa-baixa
+    mask = abs(f) <= cutoff_freq; % Janela do filtro passa-baixa
 
     % Aplicar o filtro passa-baixa à FFT do sinal amostrado
     Yjw_filtered = Yjw .* mask;

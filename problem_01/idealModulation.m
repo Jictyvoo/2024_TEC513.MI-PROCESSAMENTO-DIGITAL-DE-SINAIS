@@ -14,13 +14,14 @@ function [impulse_train, yt, f, Yjw] = idealModulation(xt, t, Fs)
 
     step_size = 1 / Fs;
     % Função que retorna 1 quando t == 0, 0 caso contrário
-    dirac_impulse = @(tiny_t) (abs(tiny_t) <= 15e-5) * 1 + (abs(tiny_t) > 15e-5) * 0;
+    dirac_impulse = @(tiny_t) abs(tiny_t) <= 15e-5;
 
     % Trem de impulsos (delta de Dirac ideal)
     impulse_train = zeros(size(t));
     for k = min(t):step_size:max(t) + 1
         impulse_train = impulse_train + dirac_impulse(t - k);
     end
+    impulse_train(impulse_train ~= 0) = 1;
 
     % Modulação PAM com trem de impulsos
     yt = xt .* impulse_train;
