@@ -1,4 +1,4 @@
-function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs, pulse_width)
+function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs, phase)
     % Função que realiza a modulação PAM (Pulse Amplitude Modulation) com trem de impulsos
     % e a FFT (Fast Fourier Transform) do sinal modulado.
     %
@@ -6,7 +6,7 @@ function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs, pulse_width)
     % xt          - Sinal de entrada (vetor de amostras no tempo)
     % t           - Vetor de tempo correspondente ao sinal de entrada
     % Fs          - Frequência de amostragem do sinal
-    % pulse_width - Largura do Pulso
+    % phase       - Fase do Sinal
     %
     % Saídas:
     % pulse_train - Trem de pulsos usado para modulação (retângulos)
@@ -14,8 +14,9 @@ function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs, pulse_width)
     % f           - Eixo de frequências correspondente à FFT
     % Yjw         - FFT do sinal modulado (no domínio da frequência)
 
-    pulse_frequency = Fs / 20;
-    pulse_time = min(t):1 / pulse_frequency:max(t) + 1;
+    pulse_step = 1 / Fs;
+    pulse_width = phase * pulse_step;
+    pulse_time = min(t):pulse_step:max(t) + 1;
     pulse_train = pulstran(t, pulse_time, "rectpuls", pulse_width);
 
     yt = xt .* pulse_train; % Modulação com trem de impulsos ideal
