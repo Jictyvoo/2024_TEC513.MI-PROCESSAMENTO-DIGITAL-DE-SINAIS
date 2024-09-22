@@ -3,7 +3,7 @@ setup; % Isso irá chamar setup.m
 
 max_frequency = 1000;
 % Continuar com o código principal
-[xt, fc, phi, x, t] = signal(2, 10, max_frequency);
+[xt, fc, phi, t] = signal(2, 10, max_frequency);
 % xt = sin(2 * pi * t);
 f_max = max(fc); % Frequência máxima do sinal
 
@@ -21,16 +21,13 @@ phi = phi(phi ~= 0);
 % Definir o número de linhas e colunas dos gráficos
 plt_rows = 3;
 plt_cols = 2;
-%
-%
-figure;
-plotSignal(x, t, xt, Fs);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MODULAÇÃO IDEAL
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+100);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
 
 % PLOTS
 figure; % Cria uma nova figura para os gráficos
