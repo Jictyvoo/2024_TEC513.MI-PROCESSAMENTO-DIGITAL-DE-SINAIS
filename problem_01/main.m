@@ -1,12 +1,14 @@
 % Primeiramente, configurar o ambiente chamando o arquivo setup.m
 setup; % Isso irá chamar setup.m
 
+max_frequency = 1000;
 % Continuar com o código principal
-[xt, fc, phi, x, t] = signal(2, 10, 1000);
+[xt, fc, phi, x, t] = signal(2, 10, max_frequency);
 % xt = sin(2 * pi * t);
 f_max = max(fc); % Frequência máxima do sinal
 
-Fs = (2 * f_max) + (f_max * 0.08); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
+Fs = (2.10*f_max); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
+Fs = round(Fs/max_frequency) * max_frequency * 1.1;
 
 % SEM FILTRO
 xt_filtered = xt;
@@ -28,7 +30,7 @@ plotSignal(x, t, xt, Fs);
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+50);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+100);
 
 % PLOTS
 figure; % Cria uma nova figura para os gráficos

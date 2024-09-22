@@ -12,20 +12,19 @@ function [impulse_train, yt, f, Yjw] = idealModulation(xt, t, Fs)
     % f             - Eixo de frequências
     % Yjw   - FFT do sinal PAM modulado
 
+    step_size = 1 / Fs;
     % Função que retorna 1 quando t == 0, 0 caso contrário
-    dirac_impulse = @(tiny_t) tiny_t == 0;
+    dirac_impulse = @(tiny_t) abs(tiny_t) <= 15e-5;
 
     % Trem de impulsos (delta de Dirac ideal)
-    t_size = size(t);
-    % Modulação PAM com trem de impulsos
     impulse_train = zeros(size(t));
-    time_pass = abs(t(2) - t(1))
-    for k = min(t):1 / (2 * Fs):max(t) + 1
-        k = round(k / time_pass) * time_pass;
+    for k = min(t):step_size:max(t) + 1
         impulse_train = impulse_train + dirac_impulse(t - k);
     end
+    impulse_train(impulse_train ~= 0) = 1;
 
-    yt = xt .* impulse_train; % Modulação com trem de impulsos ideal
+    % Modulação PAM com trem de impulsos
+    yt = xt .* impulse_train;
 
     N = length(yt); % Número de pontos do sinal
     f = (-N / 2:(N / 2) - 1) * (Fs / N); % Eixo de frequências (ajustado para Fs)
