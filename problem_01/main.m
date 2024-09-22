@@ -91,9 +91,9 @@ plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstruct
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem FLAT-TOP
 %
-[pulse_train, yt, f, Yjw] = flattopModulation(xt_filtered, t, Fs, min(phi));
+[pulse_train, yt, f, Yjw] = flattopModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max/100);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+100);
 
 # PLOTS
 figure; % Cria uma nova figura para os gráficos
@@ -104,16 +104,22 @@ plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
+axis([0 5e-3 -5 5]);
+
 
 % 2. Train
 subplot(plt_rows, plt_cols, 2), plot(t, pulse_train);
 title('Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
+axis([0 5e-3 -5 5]);
+
 
 % 3. PAM com Train
 subplot(plt_rows, plt_cols, 3), plot(t, yt);
 title('PAM com Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
+axis([0 5e-3 -5 5]);
+
 plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed)
