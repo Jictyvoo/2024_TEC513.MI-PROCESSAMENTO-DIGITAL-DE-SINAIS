@@ -12,20 +12,20 @@ function [pulse_train, yt, f, Yjw] = flattopModulation(xt, t, Fs)
     % yt          - Sinal modulado por amplitude com o trem de impulsos (PAM)
     % f           - Eixo de frequências correspondente à FFT
     % Yjw         - FFT do sinal modulado (no domínio da frequência)
-    pulse_frequency = Fs;
-    pulse_width = 0.2 * (1 / Fs);
-    pulse_time = min(t):1 / pulse_frequency:max(t) + 1;
+    pulse_frequency = 1 / Fs;
+    pulse_width = 0.2 * (pulse_frequency);
+    pulse_time = min(t):pulse_frequency:max(t) + 1;
     pulse_train = pulstran(t, pulse_time, "rectpuls", pulse_width);
 
     % Modulação
-    period_sam = round(Fs / pulse_frequency); % Número de amostras por período da onda quadrada
-    on_samp = round(period_sam * pulse_width / 100); % Amostras no estado "on"
-    ind = 1:period_sam:length(t); % Índices de início dos ciclos "on"
+    period_sample = 1; % Número de amostras por período da onda quadrada
+    on_sample = round(period_sample * pulse_width / 100); % Amostras no estado "on"
+    indexes = 1:period_sample:length(t); % Índices de início dos ciclos "on"
 
     yt = zeros(1, length(t)); % Inicializa vetor PAM
-    yt(ind) = xt(ind); % Atribui valores do sinal modulante para o início dos pulsos
-    for i = 1:length(ind)% Preenche os ciclos "on" com o valor correspondente do sinal modulante
-        yt(ind(i):ind(i) + on_samp - 1) = xt(ind(i));
+    yt(indexes) = xt(indexes); % Atribui valores do sinal modulante para o início dos pulsos
+    for i = 1:length(indexes)% Preenche os ciclos "on" com o valor correspondente do sinal modulante
+        yt(indexes(i):indexes(i) + on_sample - 1) = xt(indexes(i));
     end
 
     % FFT da modulação PAM

@@ -7,13 +7,13 @@ max_frequency = 1000;
 % xt = sin(2 * pi * t);
 f_max = max(fc); % Frequência máxima do sinal
 
-Fs = (2.10*f_max); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
-Fs = round(Fs/max_frequency) * max_frequency * 1.1;
+Fs = (2.50 * f_max); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
+%Fs = round(Fs/max_frequency) * max_frequency * 1.1;
 
 % SEM FILTRO
 xt_filtered = xt;
 % Aplicar o filtro Butterworth passa-baixa
-f_cutoff = f_max; % A frequência de corte será a frequência máxima do sinal
+f_cutoff = f_max*1.10; % A frequência de corte será a frequência máxima do sinal
 xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
 % Remover zeros do array phi
 phi = phi(phi ~= 0);
