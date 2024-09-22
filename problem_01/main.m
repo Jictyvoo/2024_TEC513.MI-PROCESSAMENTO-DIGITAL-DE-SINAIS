@@ -1,56 +1,60 @@
-% First, set up the environment by installing/loading necessary packages
-setup; % This will call setup.m
+% Primeiramente, configurar o ambiente chamando o arquivo setup.m
+setup; % Isso irá chamar setup.m
 
-% Continue with main code
-[xt, fc, phi, x, t] = signal(2, 10, 3000);
+% Continuar com o código principal
+[xt, fc, phi, x, t] = signal(2, 10, 1000);
 % xt = sin(2 * pi * t);
-% discoverFrequency = @(t) (length(t) >= 2) * (1 / abs(t(2) - t(1))) + (length(t) < 2) * 0;
-% f_max = discoverFrequency(t) / 2;
-f_max = max(fc); % Max signal frequency
+f_max = max(fc); % Frequência máxima do sinal
 
-% Definir a frequência de amostragem (Fs)
-Fs = 2 * f_max; % Definimos a frequência de amostragem como o dobro da frequência máxima para evitar aliasing
+Fs = (2 * f_max) + (f_max * 0.08); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
 
-% WITHOUT FILTER
+% SEM FILTRO
 xt_filtered = xt;
-% Aplicar filtro Butterworth passa-baixa
+% Aplicar o filtro Butterworth passa-baixa
 f_cutoff = f_max; % A frequência de corte será a frequência máxima do sinal
 xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
-% Remove zeros from the array
-phi = phi(phi != 0);
+% Remover zeros do array phi
+phi = phi(phi ~= 0);
 %
-%
+% Definir o número de linhas e colunas dos gráficos
 plt_rows = 3;
 plt_cols = 2;
+%
+%
+figure;
+plotSignal(x, t, xt, Fs);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Filtragem IDEAL
+% MODULAÇÃO IDEAL
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+50);
 
 % PLOTS
 figure; % Cria uma nova figura para os gráficos
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1);
-plot(t, xt);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
+axis([0 5e-3 -5 5]);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
 
-% 2. Train
+% 2. Trem de Impulsos
 subplot(plt_rows, plt_cols, 2), stem(t, impulse_train);
+axis([0 5e-3 0 1.5]);
 title('Trem de Impulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
 
-% 3. PAM com Train
+% 3. PAM com Trem de Impulsos
 subplot(plt_rows, plt_cols, 3), stem(t, yt);
+axis([0 5e-3 -5 5]);
 title('PAM com Trem de Impulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-plotSamplingResults(t, xt, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed)
+% Plot dos gráficos restantes
+plotSamplingResults(t, xt, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Filtragem NATURAL
