@@ -13,8 +13,8 @@ function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs)
     % f           - Eixo de frequências correspondente à FFT
     % Yjw         - FFT do sinal modulado (no domínio da frequência)
 
-    pulse_step = 1 / Fs;
-    pulse_width = 0.5 * pulse_step; % Delta nos nossos cálculos
+    pulse_step = 1 / (Fs * 2);
+    pulse_width = 0.2 * pulse_step; % Delta nos nossos cálculos
     pulse_time = min(t):pulse_step:max(t);
     pulse_train = pulstran(t, pulse_time, "rectpuls", pulse_width);
 
