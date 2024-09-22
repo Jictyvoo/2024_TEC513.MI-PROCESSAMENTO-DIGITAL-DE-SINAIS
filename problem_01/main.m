@@ -27,7 +27,7 @@ plt_cols = 2;
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max+100);
 
 % PLOTS
 figure; % Cria uma nova figura para os gráficos
@@ -60,26 +60,28 @@ plotSamplingResults(t, xt, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstru
 %
 [pulse_train, yt, f, Yjw] = naturalModulation(xt_filtered, t, Fs, min(phi));
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_max + 100);
 
 # PLOTS
 figure; % Cria uma nova figura para os gráficos
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1);
-plot(t, xt);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
+axis([0 5e-3 -5 5]);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
 
 % 2. Train
 subplot(plt_rows, plt_cols, 2), plot(t, pulse_train);
-title('Trem de Pulsos');
+axis([0 5e-3 0 1.5]), grid on;
+title('Trem de Pulsos (Retângulares)');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
 
 % 3. PAM com Train
 subplot(plt_rows, plt_cols, 3), plot(t, yt);
+axis([0 5e-3 -5 5]);
 title('PAM com Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
@@ -96,27 +98,27 @@ plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstruct
 figure; % Cria uma nova figura para os gráficos
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1);
-plot(t, xt);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
+axis([0 5e-3 -5 5]);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
 
 
-% 2. Train
+% 2. Trem de Pulsos
 subplot(plt_rows, plt_cols, 2), plot(t, pulse_train);
+axis([0 5e-3 0 1.5]);
+stairs(t, pulse_train);
 title('Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
 
 
-% 3. PAM com Train
+% 3. PAM com Trem de Pulsos
 subplot(plt_rows, plt_cols, 3), plot(t, yt);
+axis([0 5e-3 -5 5]);
 title('PAM com Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
 
 plotSamplingResults(t, xt, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed)
