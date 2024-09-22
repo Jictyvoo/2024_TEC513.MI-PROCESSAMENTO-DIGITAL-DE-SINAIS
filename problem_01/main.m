@@ -106,12 +106,13 @@ ylabel('Magnitude');
 
 
 % 2. Trem de Pulsos
-subplot(plt_rows, plt_cols, 2), plot(t, pulse_train);
+subplot(plt_rows, plt_cols, 2);
+stairs(t, pulse_train, 'r'); % Usar 'stairs' para pulsos retangulares
+title('Trem de Pulsos (Retangulares)');
+xlabel('Tempo (s)');
+ylabel('Amplitude');
+ylim([-0.1 1.1]); % Ajustar os limites do eixo Y para ver claramente os pulsos
 axis([0 5e-3 0 1.5]);
-stairs(t, pulse_train);
-title('Trem de Pulsos');
-xlabel('Tempo (t)');
-ylabel('Magnitude');
 
 
 % 3. PAM com Trem de Pulsos
