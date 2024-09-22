@@ -12,7 +12,7 @@ Fs = (2.2 * f_max); % A frequência de amostragem é o dobro da frequência máx
 % SEM FILTRO
 xt_filtered = xt;
 % Aplicar o filtro Butterworth passa-baixa
-f_cutoff = (f_max + 100) * 0.35; % A frequência de corte será a frequência máxima do sinal
+f_cutoff = f_max * 1; % A frequência de corte será a frequência máxima do sinal
 %xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
 % Remover zeros do array phi
 phi = phi(phi ~= 0);
@@ -33,7 +33,7 @@ figure(2); % Seleciona ou cria a figura com ID 1
 set(gcf, 'Name', 'Amostragem Ideal', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
@@ -67,7 +67,7 @@ figure(3); % Seleciona ou cria a figura com ID 1
 set(gcf, 'Name', 'Amostragem Natural', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
@@ -101,7 +101,7 @@ figure(4); % Seleciona ou cria a figura com ID 1
 set(gcf, 'Name', 'Amostragem Flat-Top', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
-subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
+subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
