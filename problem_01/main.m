@@ -29,7 +29,8 @@ plt_cols = 2;
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
 
 % PLOTS
-figure; % Cria uma nova figura para os gráficos
+figure(2); % Seleciona ou cria a figura com ID 1
+set(gcf, 'Name', 'Amostragem Ideal', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
 subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
@@ -62,7 +63,8 @@ plotSamplingResults(t, xt_filtered, impulse_train, yt, f, Yjw, Yjw_filtered, yt_
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
 
 # PLOTS
-figure; % Cria uma nova figura para os gráficos
+figure(3); % Seleciona ou cria a figura com ID 1
+set(gcf, 'Name', 'Amostragem Natural', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
 subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
@@ -95,7 +97,8 @@ plotSamplingResults(t, xt_filtered, pulse_train, yt, f, Yjw, Yjw_filtered, yt_re
 [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
 
 # PLOTS
-figure; % Cria uma nova figura para os gráficos
+figure(4); % Seleciona ou cria a figura com ID 1
+set(gcf, 'Name', 'Amostragem Flat-Top', 'NumberTitle', 'off'); % Define o nome da figura e desativa o título numérico
 
 % 1. Sinal senoidal
 subplot(plt_rows, plt_cols, 1), plot(t, xt_filtered);
