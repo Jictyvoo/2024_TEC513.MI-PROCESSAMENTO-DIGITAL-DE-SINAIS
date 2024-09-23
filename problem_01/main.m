@@ -12,10 +12,8 @@ Fs = (2.2 * f_max); % A frequência de amostragem é o dobro da frequência máx
 % SEM FILTRO
 xt_filtered = xt;
 % Aplicar o filtro Butterworth passa-baixa
-f_cutoff = f_max * 1; % A frequência de corte será a frequência máxima do sinal
+f_cutoff = Fs * 35e-2; % A frequência de corte será a frequência máxima do sinal
 %xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
-% Remover zeros do array phi
-phi = phi(phi ~= 0);
 %
 % Definir o número de linhas e colunas dos gráficos
 plt_rows = 3;
@@ -26,7 +24,7 @@ plt_cols = 2;
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff, false);
 
 % PLOTS
 figure(2); % Seleciona ou cria a figura com ID 1
@@ -60,7 +58,7 @@ plotSamplingResults(t, xt_filtered, impulse_train, yt, f, Yjw, Yjw_filtered, yt_
 %
 [pulse_train, yt, f, Yjw] = naturalModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff, true);
 
 # PLOTS
 figure(3); % Seleciona ou cria a figura com ID 1
@@ -94,7 +92,7 @@ plotSamplingResults(t, xt_filtered, pulse_train, yt, f, Yjw, Yjw_filtered, yt_re
 %
 [pulse_train, yt, f, Yjw] = flattopModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff, false);
 
 # PLOTS
 figure(4); % Seleciona ou cria a figura com ID 1
