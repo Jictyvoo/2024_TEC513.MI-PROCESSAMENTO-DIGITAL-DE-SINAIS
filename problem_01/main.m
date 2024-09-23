@@ -12,7 +12,7 @@ Fs = (2.2 * f_max); % A frequência de amostragem é o dobro da frequência máx
 % SEM FILTRO
 xt_filtered = xt;
 % Aplicar o filtro Butterworth passa-baixa
-f_cutoff = Fs * 35e-2; % A frequência de corte será a frequência máxima do sinal
+f_cutoff = Fs * 15e-2; % A frequência de corte será a frequência máxima do sinal
 %xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
 %
 % Definir o número de linhas e colunas dos gráficos
