@@ -13,8 +13,8 @@ function [pulse_train, yt, f, Yjw] = naturalModulation(xt, t, Fs)
     % f           - Eixo de frequências correspondente à FFT
     % Yjw         - FFT do sinal modulado (no domínio da frequência)
 
-    duty = 50; % Ciclo de trabalho da portadora
-    pulse_train = 0.5 * square(2 * pi * Fs * t, duty) + 0.5;
+    duty = 25; % Ciclo de trabalho da portadora
+    pulse_train = 0.5 * square(4 * pi * Fs * t, duty) + 0.5;
 
     yt = xt .* pulse_train; % Modulação com trem de impulsos ideal
 
