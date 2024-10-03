@@ -1,3 +1,13 @@
+// Expose Espressif SDK functionality - wrapped in ifdef so that it still
+// compiles on other platforms
+#ifdef ESP8266
+    extern "C" {
+        #include "user_interface.h"
+    }
+    ADC_MODE(ADC_TOUT);
+#endif
+
+
 // Define constants for the GPIO pins
 struct GPIOPins {
   const int sensor = A0;   // select the input pin for the potentiometer
@@ -5,9 +15,9 @@ struct GPIOPins {
 };
 
 struct SamplingParams {
-  const uint samplingFrequency = 10; // Values in Hz
-  const uint maxResistanceValue = 723; // Value in Ohms
-  const float maxVoltage = 3.3; // Value in Volts
+  const uint samplingFrequency = 1; // Values in Hz
+  const uint maxReadValue = 1024;   // Value in ADC units (for ESP8266)
+  const float maxVoltage = 3.3;     // Max ADC voltage
 };
 
 const GPIOPins gpio;  // Create an instance of the GPIOPins struct
@@ -23,8 +33,8 @@ struct TimeController {
 };
 
 TimeController ctrlTime;
-int samplingInterval = ctrlTime.second;
-int sensorValue = 0;  // variable to store the value coming from the sensor
+Duration samplingInterval = ctrlTime.second;
+uint16_t sensorValue = 0;  // variable to store the value coming from the sensor
 
 void setup() {
   // Declare all OUTPUT pins
@@ -44,9 +54,9 @@ void loop() {
 
   digitalWrite(gpio.led, HIGH);
 
-  // read the value from the sensor:
-  sensorValue = analogRead(gpio.sensor);
-  float voltage = (sensorValue * params.maxVoltage) / params.maxResistanceValue;
+  // Read the ADC value directly from the hardware register
+  sensorValue = system_adc_read();
+  float voltage = (sensorValue * params.maxVoltage) / params.maxReadValue;
   Serial.println(voltage);
 
   ctrlTime.lastCycleTime = currentTime;
