@@ -7,18 +7,7 @@
     ADC_MODE(ADC_TOUT);
 #endif
 
-
-// Define constants for the GPIO pins
-struct GPIOPins {
-  const int sensor = A0;   // select the input pin for the potentiometer
-  const int led = 13;      // select the pin for the LED
-};
-
-struct SamplingParams {
-  const uint samplingFrequency = 1; // Values in Hz
-  const uint maxReadValue = 1024;   // Value in ADC units (for ESP8266)
-  const float maxVoltage = 3.3;     // Max ADC voltage
-};
+#include "ConstDefinitions.h"
 
 const GPIOPins gpio;  // Create an instance of the GPIOPins struct
 const SamplingParams params; // Create sampling params const
@@ -52,12 +41,13 @@ void loop() {
     return;
   }
 
+  ctrlTime.lastCycleTime = currentTime;
   digitalWrite(gpio.led, HIGH);
 
   // Read the ADC value directly from the hardware register
-  sensorValue = system_adc_read();
-  float voltage = (sensorValue * params.maxVoltage) / params.maxReadValue;
+  float voltage = readADC();
   Serial.println(voltage);
 
-  ctrlTime.lastCycleTime = currentTime;
+  // Turn off LED after sampling
+  digitalWrite(gpio.led, LOW);
 }
