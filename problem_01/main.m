@@ -4,16 +4,12 @@ setup; % Isso irá chamar setup.m
 max_frequency = 1000;
 % Continuar com o código principal
 [xt, fc, phi, t] = signal(2, 10, max_frequency);
-% xt = sin(2 * pi * t);
 f_max = max(fc); % Frequência máxima do sinal
 
-Fs = (2.2 * f_max); % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
-%Fs = round(Fs/max_frequency) * max_frequency * 1.1;
+Fs = 2000; % A frequência de amostragem é o dobro da frequência máxima para evitar aliasing
 % SEM FILTRO
 xt_filtered = xt;
-% Aplicar o filtro Butterworth passa-baixa
-f_cutoff = Fs * 15e-2; % A frequência de corte será a frequência máxima do sinal
-%xt_filtered = butterworthFilter(xt, Fs, f_cutoff);
+f_cutoff = 240; % A frequência de corte será a frequência máxima do sinal
 %
 % Definir o número de linhas e colunas dos gráficos
 plt_rows = 3;
@@ -24,7 +20,7 @@ plt_cols = 2;
 %
 [impulse_train, yt, f, Yjw] = idealModulation(xt_filtered, t, Fs);
 # FILTRANDO O SINAL para reconstrução
-[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff, false);
+[Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, f_cutoff + 10, true);
 
 % PLOTS
 figure(2); % Seleciona ou cria a figura com ID 1
@@ -35,21 +31,21 @@ subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 
 % 2. Trem de Impulsos
 subplot(plt_rows, plt_cols, 2), stem(t, impulse_train);
 title('Trem de Impulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 0 1.5]);
+axis([0 5e-2 0 1.5]);
 
 % 3. PAM com Trem de Impulsos
 subplot(plt_rows, plt_cols, 3), stem(t, yt);
 title('PAM com Trem de Impulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 % Plot dos gráficos restantes
 plotSamplingResults(t, xt_filtered, impulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed);
 
@@ -69,7 +65,7 @@ subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 
 % 2. Train
 subplot(plt_rows, plt_cols, 2), plot(t, pulse_train);
@@ -77,14 +73,14 @@ stairs(t, pulse_train, 'r');
 title('Trem de Pulsos (Retângulares)');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 0 1.5]), grid on;
+axis([0 5e-2 0 1.5]), grid on;
 
 % 3. PAM com Train
 subplot(plt_rows, plt_cols, 3), plot(t, yt);
 title('PAM com Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 plotSamplingResults(t, xt_filtered, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +99,7 @@ subplot(plt_rows, plt_cols, 1), plot(t, xt);
 title('Sinal senoidal');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 
 
 % 2. Trem de Pulsos
@@ -112,7 +108,7 @@ stairs(t, pulse_train, 'r');
 title('Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 0 1.5]);
+axis([0 5e-2 0 1.5]);
 
 
 % 3. PAM com Trem de Pulsos
@@ -120,6 +116,6 @@ subplot(plt_rows, plt_cols, 3), plot(t, yt);
 title('PAM com Trem de Pulsos');
 xlabel('Tempo (t)');
 ylabel('Magnitude');
-axis([0 5e-3 -5 5]);
+axis([0 5e-2 -5 5]);
 
 plotSamplingResults(t, xt_filtered, pulse_train, yt, f, Yjw, Yjw_filtered, yt_reconstructed)

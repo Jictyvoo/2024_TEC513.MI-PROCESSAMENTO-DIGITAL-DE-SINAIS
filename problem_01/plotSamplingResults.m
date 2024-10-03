@@ -17,7 +17,7 @@ function plotSamplingResults(t, xt, train, yt, f, Yjw, Yjw_filtered, yt_reconstr
 
     % 6. Sinal reconstruído
     subplot(plt_rows, plt_cols, 6), plot(t, real(yt_reconstructed)); % Usando real() para evitar partes imaginárias
-    axis([0 5e-3 -5 5]);
+    axis([0 5e-2 -5 5]);
     title('Sinal reconstruído');
     xlabel('Tempo (t)');
     ylabel('Magnitude');

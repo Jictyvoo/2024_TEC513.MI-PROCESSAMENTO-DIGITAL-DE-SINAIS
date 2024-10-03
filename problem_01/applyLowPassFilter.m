@@ -18,5 +18,5 @@ function [Yjw_filtered, yt_reconstructed] = applyLowPassFilter(Yjw, f, cutoff_fr
     Yjw_filtered = Yjw .* mask;
 
     % Transformada inversa para retornar ao domínio do tempo
-    yt_reconstructed = real(ifft(ifftshift(Yjw_filtered))); % Garantir que o resultado seja real
+    yt_reconstructed = ifft(ifftshift(Yjw_filtered)); % Garantir que o resultado seja real
 end
