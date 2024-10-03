@@ -24,5 +24,5 @@ float readADC() {
         avgVoltage += rtSamp.buffer[i];
     }
 
-    return ((avgVoltage / rtSamp.num_samples) * params.maxVoltage) / params.maxReadValue;
+    return CONVERT_ADC_TO_VOLTAGE((avgVoltage / rtSamp.num_samples), params.maxVoltage, params.maxReadValue);
 }
