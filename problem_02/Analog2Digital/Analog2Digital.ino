@@ -26,7 +26,7 @@ void setup() {
 
 void loop() {
   Duration currentTime = system_get_time();
-  if (currentTime - lastCycleTime < samplingInterval) {
+  if (lastCycleTime - currentTime < samplingInterval) {
     return;
   }
 
