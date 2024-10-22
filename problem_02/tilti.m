@@ -5,6 +5,7 @@ setup; % Isso irá chamar setup.m
 port = "/dev/ttyUSB0";
 baud_rate = 2000000;
 serial_file = serialport(port, baud_rate);
+flushinput(serial_file);
 %set(serial_file, 'bytesize', 8); %8 bits de dados
 set(serial_file, "Timeout", 1); % 1 seconds timeout for reading
 pause(1); %espera 1 segundo antes de ler dado
@@ -41,3 +42,6 @@ end
 % Cleanup after reading is done
 clear serial_file;
 disp("Finished reading from serial port.");
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CLOSE READ FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fclose(serialFile);

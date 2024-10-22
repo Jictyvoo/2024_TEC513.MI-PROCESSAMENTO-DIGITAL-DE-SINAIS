@@ -67,10 +67,13 @@ void setup () {
   Serial.println ();
 
   timer();
+  ADCCycle:
   ADC_init();
-  sendSerial();
+  
+  // wait for buffer to fill
+    sendSerial();
+  goto ADCCycle;
 }  // end of setup
 
 void loop () {
-  sendSerial();
 }
