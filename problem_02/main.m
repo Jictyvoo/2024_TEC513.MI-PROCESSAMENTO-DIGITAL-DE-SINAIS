@@ -15,7 +15,8 @@ disp("Starting to read from serial port...");
 
 try
     while true
-        [Fs, totalSamplings, resultData] = serialRead(serial_file)
+        flushinput(serial_file);
+        [Fs, totalSamplings, resultData] = serialRead(serial_file);
         figure(1); %cria uma figura
         time = [(0:1:length(resultData) - 1) / fs]; %tamanhos do dominio normalizado
 
@@ -31,6 +32,9 @@ try
         stairs(resultData); %plota a janela de amostras reguradas
         xlabel('n');
         title('x[n] segurado');
+
+        % Sleep a seconds
+        %  pause(1);
     end
 catch e
     % Clean up the serial object on error or interruption
@@ -44,4 +48,4 @@ clear serial_file;
 disp("Finished reading from serial port.");
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CLOSE READ FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-fclose(serialFile);
+fclose(serial_file);
