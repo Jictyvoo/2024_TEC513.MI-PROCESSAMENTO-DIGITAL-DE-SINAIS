@@ -33,6 +33,8 @@ try
         xlabel('n');
         title('x[n] segurado');
 
+        figure(2);
+        signalAnalysis(resultData, Fs);
         % Sleep a seconds
         %  pause(1);
     end
