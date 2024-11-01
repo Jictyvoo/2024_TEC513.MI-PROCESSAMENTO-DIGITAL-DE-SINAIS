@@ -1,12 +1,11 @@
-function [] = signalAnalysis(xn, Fs)
-  n = length(xn);
-  Xjw = fftshift(fft(xn));
-  freq = ((0:n-1) / n) * Fs; % Frequency vector
-  P2 = abs(Xjw); % Two-sided spectrum
- 
-  % Plot the FFT
-  subplot(1, 1, 1);
-  plot(freq, P2);
-  xlabel('Frequency (Hz)');
-  title('FFT of x[n]');
+function [] = signalAnalysis(xn, fs)
+    n = length(xn);
+    y = fft(xn);
+    y0 = fftshift(y); % shift y values
+    f0 = (-n / 2:n / 2 - 1) * (fs / n); % 0-centered frequency range
+    power0 = abs(y0).^2 / n; % 0-centered power
+
+    plot(f0, power0)
+    xlabel('Frequency')
+    ylabel('Power')
 endfunction

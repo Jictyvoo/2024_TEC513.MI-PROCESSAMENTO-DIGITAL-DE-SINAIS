@@ -17,11 +17,13 @@ try
     while true
         flushinput(serial_file);
         [Fs, totalSamplings, resultData] = serialRead(serial_file);
-        figure(1); %cria uma figura
-        time = [(0:1:length(resultData) - 1) / fs]; %tamanhos do dominio normalizado
+        voltageData = resultData * 5/1023;
+        maxTime = (length(resultData) - 1) / Fs;
+        time = [0:1 / Fs:maxTime]; %tamanhos do dominio normalizado
 
+        figure(1); %cria uma figura
         subplot(3, 1, 1); %plotando as figuras
-        plot(time, resultData * 5/1023)%plota as amostras interpoladas
+        plot(time, voltageData), axis([0 maxTime 0 5])%plota as amostras interpoladas
         xlabel('t(s)');
         title('Sinal gerado x(t)');
         subplot(3, 1, 2);
@@ -36,8 +38,8 @@ try
         figure(2);
         signalAnalysis(resultData, Fs);
         % Sleep a seconds
-        %  pause(1);
-    end
+        pause(3);
+    endwhile
 catch e
     % Clean up the serial object on error or interruption
     disp("An error occurred or stopped manually.");
@@ -46,8 +48,7 @@ catch e
 end
 
 % Cleanup after reading is done
-clear serial_file;
 disp("Finished reading from serial port.");
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CLOSE READ FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-fclose(serial_file);
+clear serial_file;

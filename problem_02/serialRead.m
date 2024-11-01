@@ -36,5 +36,5 @@
         raw = cat(2, raw, data); %armazena o dado bruto (raw = sem processamento)
         x = char(raw); %converte em carateres os dados recebidos
         resultData = str2num(x); %string de carateres em números
-        resultData = resultData(1:end - 1);
+        resultData = resultData(1:end - 10);
     end
