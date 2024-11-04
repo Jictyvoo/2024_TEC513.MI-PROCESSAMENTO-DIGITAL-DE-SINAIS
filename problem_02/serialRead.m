@@ -1,4 +1,4 @@
-    function [Fs, totalSamplings, resultData] = serialRead(serialFile)
+    function [Fs, totalSamplings, resultData] = serialRead(serialFile, maxSamplings)
         lastValue = [];
 
         % Do a single reading on serial file, while waits to receive the sampling frequency amount
@@ -29,12 +29,18 @@
         tic; %captura do tempo inicial
         % Start to read all samples
         disp(['Trying to get samples ', mat2str(totalSamplings)]);
-        data = fread(serialFile, totalSamplings, 'uint8');
+        data = fread(serialFile, 3*totalSamplings, 'uint8');
 
         %hold on; %mantem as amostras anteriores
         raw = [];
         raw = cat(2, raw, data); %armazena o dado bruto (raw = sem processamento)
         x = char(raw); %converte em carateres os dados recebidos
         resultData = str2num(x); %string de carateres em números
-        resultData = resultData(1:end - 10);
+        
+        if totalSamplings > maxSamplings
+          totalSamplings = maxSamplings;
+        endif
+        if length(resultData) > totalSamplings
+          resultData = resultData(1:totalSamplings);
+        endif
     end

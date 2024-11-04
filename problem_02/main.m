@@ -13,10 +13,11 @@ pause(1); %espera 1 segundo antes de ler dado
 % Start reading the data
 disp("Starting to read from serial port...");
 
-try
-    while true
+    run = true;
+    while run
+        run = false;
         flushinput(serial_file);
-        [Fs, totalSamplings, resultData] = serialRead(serial_file);
+        [Fs, totalSamplings, resultData] = serialRead(serial_file, 3000);
         voltageData = resultData * 5/1023;
         maxTime = (length(resultData) - 1) / Fs;
         time = [0:1 / Fs:maxTime]; %tamanhos do dominio normalizado
@@ -36,16 +37,11 @@ try
         title('x[n] segurado');
 
         figure(2);
-        signalAnalysis(resultData, Fs);
+        signalAnalysis(voltageData, Fs);
         % Sleep a seconds
         pause(3);
     endwhile
-catch e
-    % Clean up the serial object on error or interruption
-    disp("An error occurred or stopped manually.");
-    disp(e.message);
-    clear serial_file;
-end
+
 
 % Cleanup after reading is done
 disp("Finished reading from serial port.");
