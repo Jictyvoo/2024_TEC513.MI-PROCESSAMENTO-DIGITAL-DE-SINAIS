@@ -1,0 +1,8 @@
+### Obsidian template
+# config dir
+.obsidian/
+
+
+out/
+*.log
+

@@ -1,0 +1,33 @@
+{
+  "name": "latex-env",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "james-yu.latex-workshop"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "files.associations": {
+          "*.tex": "latex"
+        },
+        "files.eol": "\n"
+      }
+    }
+  },
+  "dockerFile": "Dockerfile",
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig",
+      "target": "/home/latex_devcon/.gitconfig",
+      "type": "bind"
+    }
+  ],
+  "remoteUser": "latex_devcon",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils": {
+      "installZsh": true,
+      "username": "latex_devcon",
+      "upgradePackages": true
+    }
+  }
+}
