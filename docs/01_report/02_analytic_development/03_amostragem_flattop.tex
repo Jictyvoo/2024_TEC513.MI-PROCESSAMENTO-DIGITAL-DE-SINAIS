@@ -1,0 +1,53 @@
+Para esse método, a cada instante de tempo o amostrador assume o valor atual da função $x(t)$, esse valor é mantido até o próximo instante em que uma nova amostra é tomada.Para isso, podemos realizar a convolução da amostragem ideal $i(t)$ com um pulso retangular $r(t)$, obtendo assim um trem de pulsos retangulares ponderados pela amostragem ideal. 
+
+\begin{align}
+    f(t) = i(t) * r(t) \overset{\text{FT}} {\longleftrightarrow} F(j\omega) = I(j\omega) \cdot R(j\omega)
+    \label{eq:flattopFT}
+\end{align}
+
+
+A partir da definição do pulso retangular simétrico, temos o desenvolvimento de sua transformada.
+
+\begin{align}
+r(t) = 
+\begin{cases} 
+1, & \text{se } \frac{-\Delta}{2} \leq t \leq \frac{\Delta}{2}, \\ 
+0, & \text{caso contrário}
+\end{cases}
+\end{align}
+
+\begin{equation}
+R(j\omega) = \int_{-\infty}^{\infty} r_2(t) e^{-j\omega t}dt
+\end{equation}
+\begin{equation}
+= \int_{-\frac{\Delta}{2}}^{z\frac{\Delta}{2}} e^{-j\omega t}dt
+\end{equation}
+\begin{equation}
+ = -\frac{1}{j\omega}\cdot(e^{-j\omega t} \bigg\rvert_{-\Delta/2}^{\Delta/2})
+\end{equation}
+\begin{equation}
+= -\frac{1}{j\omega}\left(e^{-\frac{j\omega\Delta}{2}}-e^{\frac{j\omega\Delta}{2}}\right)
+\end{equation}
+
+A partir da relação de exponencial complexa com funções senoidais, dada em (1), podemos simplificar como:
+\begin{equation}
+R(j\omega) = \frac{1}{j\omega} \cdot 2j\sin{\left(\frac{\omega\Delta}{2}\right)}
+\end{equation}
+\begin{equation}
+R(j\omega) = \frac{2}{\omega} \sin{\left(\frac{\omega\Delta}{2}\right)} \cdot \frac{\Delta/2}{\Delta/2}
+\end{equation}
+\begin{align}
+    R(j\omega) = \Delta \cdot \operatorname{sinc}\left(\frac{\omega\Delta}{2}\right)
+\end{align}
+
+Assim sendo, temos:
+\begin{equation}
+ F(j\omega) = I(j\omega) \cdot R(j\omega)
+\end{equation}
+\begin{equation}
+ = \frac{2\pi}{\tau}\sum_{k=-\infty}^{\infty}X(j(\omega-k\frac{2\pi}{\tau})) \cdot \Delta sinc\left(\frac{\omega\Delta}{2}\right)
+\end{equation}
+\begin{align}
+F(j\omega) = \frac{2\pi}{\tau} \Delta sinc\left(\frac{\omega\Delta}{2}\right) \sum_{k=-\infty}^{\infty}X\left(j\left(\omega-k\frac{2\pi}{\tau}\right)\right)
+\label{eq:flattop}
+\end{align}

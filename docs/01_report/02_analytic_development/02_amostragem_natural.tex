@@ -1,0 +1,51 @@
+Esse método de amostragem é resultado da modulação de um trem de pulsos, $c(t)$, por uma função qualquer, $x(t)$. Similar a amostragem ideal, a amostragem natural se dá matematicamente como:
+\begin{align}
+    n(t) = x(t) \cdot c(t)
+\end{align}
+
+% $$
+% Transformada do trem de pulsos
+% C(j\omega) = \frac{2\pi\Delta}{T} \sum_{-\infty}^{\infty} sinc(k\frac{\Delta}{T}) \cdot X(j\omega-jk\omega_0)
+% $$
+
+\begin{equation}
+    p(t) = \sum_{n=-\infty}^{\infty} \delta(t - n\tau)    
+\end{equation}
+    \begin{equation}
+    P(j\omega) = \frac{2\pi}{\tau} \sum_{n=-\infty}^{\infty} \delta(\omega - n\frac{2\pi}{\tau})    
+    \end{equation}
+    \begin{equation}
+    p(t) \overset{\text{FT}}{\longleftrightarrow} P(j\omega)     
+    \end{equation}
+    \begin{equation}
+    \delta(t) \overset{\text{FT}}{\longleftrightarrow} 1        
+    \end{equation}
+    \begin{equation}
+    \delta(t - n\tau) \overset{\text{FT}}{\longleftrightarrow} e^{-j\omega n \tau}        
+    \end{equation}
+    \begin{equation}
+        S(j\omega) = \frac{2\pi}{\tau} \sum_{n=-\infty}^{\infty} \delta(\omega - n\omega_{0}) a_{k} \cdot e^{j\omega_{0}t} \overset{\text{FT}}{\longleftrightarrow} 2\pi a_{k}\delta(\omega-\omega_{0})
+    \end{equation}
+    \begin{equation}       
+    s(t)\overset{\text{FT}}{\longleftrightarrow}S(j\omega)
+    \end{equation}
+    \begin{equation}
+    \sum_{n=-\infty}^{\infty} a_{n}e^{j\omega_{0}nt} \overset{\text{FT}}{\longleftrightarrow} \sum_{n=-\infty}^{\infty} 2\pi a_{n}\delta(\omega-n\omega_{0})
+            \end{equation}
+            \begin{equation}
+    \delta(t-n\tau) \overset{\text{FT}}{\longleftrightarrow} e^{-j\omega n\tau}              
+            \end{equation}
+\begin{equation}
+    \phi(t-n\tau) \overset{\text{FT}}{\longleftrightarrow} a_{k}e^{-j\omega n\tau} 
+\end{equation}
+
+Para continuar a realizar o desenvolvimento da equação, podemos notar que a única mudança para com relação ao resultado da transformada para um trem de impulsos, é o valor proveniente de $a_k$, o qual pode ser definido como a seguir:
+
+\begin{align}
+    a_k = \frac{1}{\tau} \int_{-\frac{\Delta}{2}}^{\frac{\Delta}{2}} 1 \cdot e^{-jk \frac{2\pi}{\tau}t}dt \\
+    = \frac{1}{\tau} (\frac{e^{-jk\frac{2\pi}{\tau}}}{-jk\frac{2\pi}{\tau}}) \bigg\rvert_{-\Delta/2}^{\Delta/2} \\
+    = \frac{-1}{jk2\pi} e^{-jk\frac{2\pi}{\tau}\frac{\Delta}{2}} - e^{jk\frac{2\pi}{\tau}\frac{\Delta}{2}} \\
+    = \frac{1}{k\pi}\frac{e^{jk\frac{\pi}{\tau}\Delta}-e^{-jk\frac{\pi}{\tau}\Delta}}{2j} \\
+    = \frac{1}{k\pi} sen(k\pi\frac{\Delta}{\tau})\frac{\Delta/\tau}{\Delta/\tau} \\
+    a_{k} = \frac{\Delta}{\tau} sinc(k\frac{\Delta}{\tau})
+\end{align}

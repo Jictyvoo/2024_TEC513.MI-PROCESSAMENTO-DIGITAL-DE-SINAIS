@@ -1,0 +1,39 @@
+O desenvolvimento da solução para o problema apresentado ocorreu a partir de quatro etapas principais: 1. aplicação de um filtro \textit{anti-aliasing}, 2. amostragem por Modulação por Amplitude de Pulso (PAM), 3. obtenção do espectro do sinal amostrado e 4. reconstrução do sinal no domínio do tempo.
+
+Na entrada do sistema, temos uma soma de sinais senoidais puros que pode ser expressa na forma:
+
+\begin{equation}
+    x(t) = a \cdot \sin(2\pi f_1 \cdot t) + b \cdot \sin(2\pi f_2 \cdot t)
+\end{equation}
+
+Sinais contínuos, como este, geralmente não são limitados em banda, o que pode resultar no fenômeno de \textit{aliasing}. Para evitá-lo, aplicaremos o Teorema da Amostragem através de um filtro passa-baixa \textit{Butterworth}, que funciona como um filtro \textit{anti-aliasing}. Os filtros dessa classe possuem diversas propriedades, como a resposta de magnitude na banda de passagem, tornando-os atraentes para implementações práticas \cite{b2}.
+
+Um filtro passa-baixa \textit{Butterworth} de ordem $N$ tem uma resposta em frequência cujo quadrado da magnitude é dado por:
+
+\begin{equation}
+    |B(jw)|^2 = \frac{1}{1 + \left( \frac{jw}{jw_c} \right)^{2N}} 
+\end{equation}
+
+Durante as análises matemáticas, utilizamos frequentemente as propriedades de seno e cosseno. Uma identidade fundamental é:
+
+\begin{equation}
+    \cos(\theta) \pm j\sin(\theta) = e^{\pm j\theta}
+\end{equation}
+
+A partir dessa equação, proveniente da análise do círculo trigonométrico, podemos deduzir duas expressões ao somar e subtrair $e^{-j\theta}$ de $e^{j\theta}$:
+
+\begin{align}
+    e^{j\theta} - e^{-j\theta} &= 2j\sin(\theta) \\
+    e^{j\theta} + e^{-j\theta} &= 2\cos(\theta)
+\end{align}
+
+Com esses fundamentos do círculo trigonométrico, seguimos para o desenvolvimento dos cálculos necessários para os métodos de amostragem.
+
+\subsection{Amostragem ideal}
+\input{02_analytic_development/01_amostragem_ideal}
+
+\subsection{Amostragem natural}
+\input{02_analytic_development/02_amostragem_natural}
+
+\subsection{Amostragem de topo plano (flat-top)}
+\input{02_analytic_development/03_amostragem_flattop}

@@ -1,0 +1,105 @@
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+   \makeatletter
+    \newcommand{\linebreakand}{%
+      \end{@IEEEauthorhalign}
+      \hfill\mbox{}\par
+      \mbox{}\hfill\begin{@IEEEauthorhalign}
+    }
+    \makeatother
+
+\title{Problema 1: Análise Matemática Comparativa da Amostragem de Sinais Analógicos\\
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Antony Araujo Oliveira}
+\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+\textit{Universidade Estadual de Feira de Santana}\\
+Feira de Santana, Bahia, Brasil \\
+antony@ecomp.uefs.br}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Daniel Alves Costa}
+\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+\textit{Universidade Estadual de Feira de Santana}\\
+Feira de Santana, Bahia, Brasil \\
+dancosta@ecomp.uefs.br} 
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} João Victor Oliveira Couto}
+\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+\textit{Universidade Estadual de Feira de Santana}\\
+Feira de Santana, Bahia, Brasil \\
+contact@jityvoo.dev}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Lokisley Oliveira Pedreira}
+\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+\textit{Universidade Estadual de Feira de Santana}\\
+Feira de Santana, Bahia, Brasil \\
+lokisley@hotmail.com}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Velder Soares}
+\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+\textit{Universidade Estadual de Feira de Santana}\\
+Feira de Santana, Bahia, Brasil \\
+velder.vas@gmail.com}
+\IEEEauthorblockN{}
+\IEEEauthorblockA{}
+}
+
+\maketitle
+
+\begin{abstract}
+Este relatório aborda o processo de conversão de sinais analógicos em digitais, explorando conceitos como o Teorema da Amostragem e a Transformada Rápida de Fourier, essenciais para a modulação e reconstrução de sinais. Através de simulações, foram analisados três métodos de amostragem — ideal, natural e \textit{flat-top} — e seus efeitos na precisão da reconstrução do sinal, destacando a importância da escolha correta da taxa de amostragem e do uso de filtros \textit{anti-aliasing} para evitar distorções como o \textit{aliasing}. O estudo reforça que a implementação de filtros adequados e a seleção correta da frequência de amostragem são cruciais para garantir a fidelidade do sinal no processamento digital. 
+\end{abstract}
+
+\begin{IEEEkeywords}
+Conversão analógico-digital, Teorema da Amostragem, Transformada de Fourier, aliasing, modulação por amplitude de pulso (PAM), filtros anti-aliasing, reconstrução de sinais e taxa de amostragem .
+\end{IEEEkeywords}
+
+\section{Introdução}
+\input{01_introduction}
+
+\section{Desenvolvimento}
+% Aqui entra a pasta com o conteúdo de como a análise analítica foi realizada
+\input{02_analytic_development/00_index_development}
+
+\section{Resultados}
+\input{03_results/index_results}
+
+\section{Discussões}
+O desenvolvimento do produto enfrentou diversas problemáticas. Inicialmente, o projeto foi concebido para uma soma de senoides puras com uma faixa de frequência delimitada, o que gerou previsibilidade nos resultados. Contudo, ao utilizar um sinal de teste fornecido (com senoides e cossenoides, mas uma faixa de frequência menos previsível), observou-se um comportamento diferente no PAM, exigindo ajustes na frequência de corte e no ciclo de trabalho (\textit{duty cycle}) para adequação do PAM, além de refinamentos na reconstrução do sinal.
+
+O sinal de teste impediu o uso da mesma frequência de amostragem de 8KHz, obrigando a adoção de frequências mais altas. Isso permitiu um desempenho mais adequado do PAM e maior proximidade entre o sinal reconstruído e o original.
+
+Outra questão foi o uso de filtros passa-baixa, que tiveram papel importante tanto na modulação quanto na demodulação, garantindo as condições do Teorema de Nyquist-Shannon. Um filtro \textit{Butterworth} foi utilizado para evitar aliasing, embora tenha surgido dificuldade na implementação inicial, pois o filtro \textit{anti-aliasing} não foi considerado. Em alguns momentos, a reconstrução do sinal apresentou melhores resultados sem o filtro, sugerindo possíveis erros na implementação ou inadequação da frequência de corte.
+
+O filtro passa-baixa também foi aplicado na demodulação, com desafios semelhantes, mas menos acentuados. A escolha de uma ordem diferente para o \textit{Butterworth} no \textit{anti-aliasing} (ordem 4) e na demodulação (ordem 6) pode ter contribuído para esses desafios. Além disso, alguns testes exigiram amplificação do sinal devido a perdas, o que foi solucionado com ajustes nas frequências e filtros.
+
+\section{Conclusões}
+Este experimento explorou conceitos fundamentais, como o Teorema da Amostragem e a Transformada Rápida de Fourier, essenciais para a modulação e conversão analógico-digital (A/D). As simulações destacaram a importância de escolher uma frequência de amostragem adequada, utilizando filtros \textit{anti-aliasing} para evitar o \textit{aliasing}, garantindo a integridade do sinal e sua reconstrução fiel.
+
+As análises gráficas e matemáticas realizadas reforçaram o papel crucial do Teorema de Nyquist, demonstrando que uma amostragem precisa e a aplicação de filtros prévios são essenciais para evitar distorções no processo de reconstrução. A correta filtragem permitiu a preservação das características originais do sinal.
+
+Conclui-se que a implementação de filtros \textit{anti-aliasing} e a escolha adequada da taxa de amostragem foram determinantes para garantir a fidelidade do sinal reconstruído, destacando a importância desses elementos no desenvolvimento de sistemas de processamento de sinais digitais robustos e eficientes.
+
+\begin{thebibliography}{00}
+\bibitem{b1} SANCA, A.S. TEC430 - PROCESSAMENTO DIGITAL DE SINAIS : Notas de Aula. Universidade Estadual De Feira De Santana - Departamento De Tecnologia (DTEC). 2024.
+
+\bibitem{b2} Alan V. Oppenheim, Alan S. Willsky, and S. Hamid Nawab. Sinais e Sistemas. Prentice Hall, Sao Paulo, SP, Brasil, 3ª edição, 2012.
+\bibitem{b3} L W. Couch. Digital and Analog Communication Systems. Prentice Hall, University of Florida (Electrical and Computer Engineering), New Jersey, 2ª edição, 2007.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,106 @@
+Ao modular um sinal qualquer, $x(t)$, com um trem de impulsos, $p(t)$ podemos obter o valor instantâneo da função de acordo com o período do trem de impulsos. Dessa forma, a amostragem ideal se dá como um trem de impulsos ponderados pela amplitude de uma função qualquer. E pode ser calculado no domínio do tempo como:
+\begin{equation}
+    i(t) = x(t) \cdot p(t)
+\end{equation}
+Considerando que o trem de impulsos é representado como:
+
+\begin{equation}
+p(t) = \sum_{n=-\infty}^{\infty} \delta(t - n\tau)
+    \label{tremimpulsos}
+    \end{equation}
+
+
+onde $\delta(t)$ é a função delta de Dirac e $\tau$ é o período do trem de impulsos.
+
+Para calcular a amostragem no domínio da frequência, precisamos primeiramente definir a transformada de Fourier $P(j\omega)$ desse trem de impulsos. Utilizando a propriedade de deslocamento no tempo da transformada de Fourier e a transformada da função delta de Dirac. Sabemos que:
+
+$$
+\mathcal{F}\{\delta(t - n\tau)\} = e^{-j\omega n\tau}
+$$
+
+Por definição, a transformada de um impulso deslocado se dá por
+$$
+\int_{-\infty}^{\infty} \delta(t - \tau) \cdot e^{-j\omega (t)} \, dt
+$$
+
+Resolvendo a integral através do método de substituição, considerando $u = t - \tau$ e $du = dt$:
+$$
+\int_{-\infty}^{\infty} \delta(u) \cdot e^{-j\omega (u + \tau)} \, du
+= \int_{-\infty}^{\infty} \delta(u) \cdot e^{-j\omega u} \cdot e^{-j\omega \tau} \, du
+$$
+$$
+= e^{-j\omega \tau} \cdot \int_{-\infty}^{\infty} \delta(u) \cdot e^{-j\omega u} \, du
+$$
+
+A função de impulso é definida como:
+\begin{equation}
+    \begin{cases}
+    \int_{-\infty}^{\infty} \delta(t) \, dt &= 1 \\
+    0, t \neq 0
+    \end{cases}
+\end{equation}
+Dessa forma, o único momento em que a função $\delta$ assume um valor diferente de zero é quando $u$ estiver se aproximando de 0. Nessa condição, a exponencial que se encontra dentro da integral assume valor 1, portanto, a transformada de um impulso deslocado é:
+\begin{equation}
+\int_{-\infty}^{\infty} \delta(t - \tau) \cdot e^{-j\omega (t)} \, dt = e^{-j\omega \tau}
+\end{equation}
+
+Assim, a transformada de Fourier do trem de impulsos deslocados, $p(t)$, é dada por:
+
+$$
+P(j\omega) = \int_{-\infty}^{\infty} x(t) \, e^{-j\omega t} \, dt
+$$
+$$
+= \int_{-\infty}^{\infty} \sum_{n=-\infty}^{\infty} \delta(t - n\tau) \, e^{-j\omega t} \, dt
+$$
+
+Podemos usar o princípio de integrais para fazer o somatório das integrais (invertendo a ordem de soma e integral):
+
+$$
+P(j\omega) = \sum_{n=-\infty}^{\infty} \int_{-\infty}^{\infty} \delta(t - n\tau) \, e^{-j\omega t} \, dt \\
+$$
+\begin{equation}
+\therefore
+P(j\omega) = \sum_{n=-\infty}^{\infty} e^{-j\omega n\tau}
+\end{equation}
+
+\subsubsection{Aplicação na Transformada de Fourier do Trem de Impulsos}
+
+No caso do trem de impulsos, o sinal no tempo $p(t)$ é uma soma infinita de funções delta de Dirac deslocadas no tempo:
+
+De acordo com o que já calculamos, a integral para cada $n$ pode ser representada como:
+$$
+P(j\omega) = \sum_{n=-\infty}^{\infty} e^{-j\omega n\tau}
+$$
+Esta soma é uma série de exponenciais complexas. O princípio da ortogonalidade é aplicado aqui para reconhecer que essa soma se comporta como um trem de impulsos no domínio da frequência. Especificamente, a soma infinita de exponenciais complexas, quando avaliada em frequências específicas, resulta em uma série de deltas de Dirac.
+
+Primeiro, reconhecemos que a soma acima é uma série geométrica infinita se pensarmos em $e^{-j\omega\tau}$ como a razão comum:
+$$
+S(\omega) = \sum_{n=-\infty}^{\infty} \left(e^{-j\omega \tau}\right)^n
+$$
+Para formalizar, expandimos a soma $S(\omega)$ em uma série de Fourier. Considerando que $S(\omega)$ é periódica com período $\frac{2\pi}{\tau}$, podemos escrevê-la como:
+
+$$
+S(\omega) = \sum_{k=-\infty}^{\infty} c_k \delta\left(\omega - k\frac{2\pi}{\tau}\right)
+$$
+
+Aqui, $c_k$ são os coeficientes da série de Fourier, que no caso de um trem de impulsos, assumem um valor constante.
+
+\subsubsection{Determinação dos Coeficientes}
+
+Os coeficientes $c_k$ podem ser determinados integrando $S(\omega)$ em um período:
+
+$$
+c_k = \frac{1}{\tau} \int_{-\frac{\pi}{\tau}}^{\frac{\pi}{\tau}} e^{-j\omega n\tau} d\omega = \frac{2\pi}{\tau}
+$$
+
+Esse valor é devido à ortogonalidade das exponenciais complexas e ao fato de estarmos somando sobre um trem de impulsos no tempo.
+
+$$
+\sum_{n=-\infty}^{\infty} e^{-j\omega n\tau} = \frac{2\pi}{\tau} \sum_{k=-\infty}^{\infty} \delta\left(\omega - k\frac{2\pi}{\tau}\right)
+$$
+
+Portanto, o valor final é:
+\begin{equation}
+    I(j\omega) = \frac{2\pi}{\tau} \sum_{k=-\infty}^{\infty} \delta\left(\omega - k\frac{2\pi}{\tau}\right)    
+\end{equation}
+Este resultado mostra que a transformada de Fourier de um trem de impulsos com período $\tau$ é um trem de impulsos no domínio da frequência, com espaçamento $\frac{2\pi}{\tau}$.

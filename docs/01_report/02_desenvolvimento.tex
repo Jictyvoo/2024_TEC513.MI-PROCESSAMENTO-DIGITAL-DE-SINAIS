@@ -1,0 +1,6 @@
+O processo de desenvolvimento da solução ao problema apresentado se deu a partir de: 1. filtro "anti-aliasing", 2. amostragem do PAM (Modulação por Amplitude de Pulso), 3. obtenção do espectro do sinal amostrado e  a 4. reconstrução do sinal no domínio do tempo.
+
+Se a faixa das frequências do sinal de entrada recebido x(t) não está limitado em banda, então ocorrerá no processo de amostragem regiões sobrepostas, gerados pela repetição periódica dos componentes do espectro (ALKING, 2014). A esse efeito chama-se de \textit{aliasing}, e isso gera uma problemática pois quando ocorre faz com que o sinal amostrado não permita a recuperação ao sinal original. 
+
+Para resolver esse problema é importante a aplicação do teorema de Nyquist-Shannon, ou teorema da amostragem, que determina que para o sinal de impulsos amostrado ser recuperável do sinal original é necessário garantir que a faixa da frequência amostragem seja  pelo menos duas vezes maior que a maior frequência no espectro do sinal original.
+
