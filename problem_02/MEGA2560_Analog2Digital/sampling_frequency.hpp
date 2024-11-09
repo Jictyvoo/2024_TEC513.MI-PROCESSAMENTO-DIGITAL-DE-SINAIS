@@ -10,6 +10,7 @@ enum SamplingFrequency {
   FREQ_20KHZ,   // 20000 Hz, OCR1A = 99 for 8x prescaler
   FREQ_10KHZ,   // 10000 Hz, OCR1A = 199 for 8x prescaler
   FREQ_5KHZ,    // 5000 Hz, OCR1A = 399 for 8x prescaler
+  FREQ_4KHZ,    // 4000 Hz, OCR1A = 499 for 8x prescaler
   FREQ_2KHZ     // 2000 Hz, OCR1A = 999 for 8x prescaler
 };
 
@@ -26,6 +27,7 @@ const FrequencyInfo frequencyTable[] = {
   { 99, 20000 },   // FREQ_20KHZ
   { 199, 10000 },  // FREQ_10KHZ
   { 399, 5000 },   // FREQ_5KHZ
+  { 499, 4000 },   // FREQ_4KHZ
   { 999, 2000 }    // FREQ_2KHZ
 };
 

@@ -10,6 +10,8 @@ flushinput(serial_file);
 set(serial_file, "Timeout", 1); % 1 seconds timeout for reading
 pause(1); %espera 1 segundo antes de ler dado
 
+origin_signal_frequency = 10000;
+limit_samples = 20;
 % Start reading the data
 disp("Starting to read from serial port...");
 
@@ -17,7 +19,7 @@ disp("Starting to read from serial port...");
     while run
         run = false;
         flushinput(serial_file);
-        [Fs, totalSamplings, resultData] = serialRead(serial_file, 3000);
+        [Fs, totalSamplings, resultData] = serialRead(serial_file, limit_samples);
         voltageData = resultData * 5/1023;
         maxTime = (length(resultData) - 1) / Fs;
         time = [0:1 / Fs:maxTime]; %tamanhos do dominio normalizado
@@ -37,7 +39,7 @@ disp("Starting to read from serial port...");
         title('x[n] segurado');
 
         figure(2);
-        signalAnalysis(voltageData, Fs);
+        signalAnalysis(voltageData, Fs, origin_signal_frequency);
         % Sleep a seconds
         pause(3);
     endwhile

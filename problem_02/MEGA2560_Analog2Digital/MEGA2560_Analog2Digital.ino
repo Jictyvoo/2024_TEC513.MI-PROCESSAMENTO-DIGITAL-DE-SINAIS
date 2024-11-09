@@ -8,7 +8,7 @@
 const byte adcPin = 0;  // A0  <=  ATMega 2560 A0 pin for ADC0
 
 const FrequencyInfo selectedFs = GET_FREQUENCY_INFO(FREQ_50KHZ);
-const unsigned int MAX_RESULTS = 3400;  // size for store data to be sent
+const unsigned int MAX_RESULTS = 3800;  // size for store data to be sent
 volatile int results[MAX_RESULTS];      // data vector
 volatile unsigned int resultNumber;
 

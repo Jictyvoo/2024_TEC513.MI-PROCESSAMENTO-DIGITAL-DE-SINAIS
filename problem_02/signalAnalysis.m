@@ -1,4 +1,4 @@
-function [] = signalAnalysis(xn, fs)
+function [] = signalAnalysis(xn, fs, originalFreq)
     % Parameters and FFT computation
     n = length(xn);
     y = fft(xn)/n;
@@ -10,14 +10,15 @@ function [] = signalAnalysis(xn, fs)
     % Create subplots
 
     % Subplot 1: Magnitude of FFT (Power Spectrum)
-    subplot(3, 1, 1);
-    plot(f0, power0);
+    originalFreq = originalFreq*1.8;
+    subplot(2, 1, 1);
+    plot(f0, power0), axis([ -originalFreq originalFreq min(y0) max(y) ]);
     xlabel('Frequency (Hz)');
     ylabel('Power');
     title('Power Spectrum');
 
     % Subplot 2: Phase of FFT (Angle)
-    subplot(3, 1, 2);
+    subplot(2, 1, 2);
     
     omegaFrequency = f0 / (2*pi);
     plot(omegaFrequency, angle0);
