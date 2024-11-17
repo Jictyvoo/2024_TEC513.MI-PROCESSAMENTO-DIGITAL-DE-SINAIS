@@ -1,0 +1,35 @@
+O processo de geração e captura do sinal foi implementado utilizando o microcontrolador \textbf{Arduino ATmega 2560}, com as seguintes configurações específicas:
+
+\begin{itemize}
+    \item \textbf{Geração do Sinal}:
+        \begin{itemize}
+            \item \textbf{Amplitude de Pico a Pico (Vpp)}: 5V, para se adequar ao limite de entrada do ATmega 2560.
+            \item \textbf{Offset de 2.5 V}: Foi aplicado um offset de 2.5V ao sinal, mantendo-o dentro do intervalo de 0 a 5V, que é o intervalo suportado pelo conversor analógico-digital (ADC) do Arduino.
+        \end{itemize}
+    
+    \item \textbf{Configuração da Frequência de Amostragem}:
+        \begin{itemize}
+            \item A frequência de amostragem ($F_s$) foi configurada em valores variados: \textbf{50 kHz, 20 kHz, 10 kHz, 5 kHz e 2 kHz}.
+            \item A configuração da frequência de amostragem foi realizada por meio de ajustes nos \textbf{registradores internos do Arduino}, permitindo o controle direto sobre o tempo de amostragem e a frequência.
+        \end{itemize}
+
+    \item \textbf{Envio de Dados pela Porta Serial}:
+        \begin{itemize}
+            \item Após cada ciclo de amostragem, o Arduino envia os dados obtidos para a porta serial. Esse envio é realizado no seguinte formato:
+            \begin{center}
+                \texttt{"Fs:totalSamplings;"}
+            \end{center}
+            onde:
+            \begin{itemize}
+                \item \textbf{Fs} representa o valor da frequência de amostragem usada.
+                \item \textbf{totalSamplings} é o número total de amostras coletadas.
+            \end{itemize}
+        \end{itemize}
+    
+    \item \textbf{Processamento do Sinal no Octave}:
+        \begin{itemize}
+            \item Os dados recebidos na porta serial são capturados no software \textbf{GNU Octave} para processamento. No Octave, os valores de $F_s$ e \textit{totalSamplings} são utilizados para análise espectral do sinal, permitindo visualizar o conteúdo em frequência do sinal capturado e verificar a eficácia da amostragem para cada configuração de $F_s$.
+        \end{itemize}
+\end{itemize}
+
+Essas configurações permitiram um controle preciso do processo de captura de sinal e garantiram que os dados fossem corretamente armazenados e transmitidos para análise subsequente.

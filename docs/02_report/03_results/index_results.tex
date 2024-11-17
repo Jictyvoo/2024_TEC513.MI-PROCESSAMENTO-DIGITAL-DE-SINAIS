@@ -1,0 +1,52 @@
+% \begin{itemize}
+%     \item Exibir os gráfico do espectro de magnitude e discutir as componentes de frequência observadas.
+%     \item Análise das Componentes Espectrais: Interpretar os picos de frequência e amplitudes presentes, comparando com as características do sinal original.
+%     \item Comparação com a Teoria: Comparar as observações com as expectativas teóricas, verificando se as componentes de frequência estão onde deveriam estar e se há evidências de aliasing ou outras distorções.
+% \end{itemize}
+Nesta seção, apresentamos os resultados do nosso experimento de análise espectral do sinal.
+
+\subsection{Frequência de amostragem: 2KHz}
+Para analisar o comportamento espectral de um sinal de frequência conhecida, geramos um sinal com frequência de 100 Hz e o amostramos a uma taxa de 2 kHz. Essa taxa de amostragem atende ao critério de Nyquist, pois é superior ao dobro da frequência do sinal $(2 * 100 Hz = 200 Hz)$. Assim, evitamos aliasing e garantimos que as componentes de frequência sejam representadas corretamente no espectro.
+
+O sinal foi analisado em duas configurações distintas, utilizando 400 (Figura~\ref{fig:input-signal-100-400}) e 600 (Figura~\ref{fig:input-signal-100-600}) amostras.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{03_results/assets/sin__100Hz_fs2k_SIGNAL_400smp}
+    \caption{Sinal senoidal de entrada com 100Hz e 400 amostras.}
+    \label{fig:input-signal-100-400}
+\end{figure}
+
+Na Figura~\ref{fig:spec-signal-100-400}, observa-se que o espectro exibe picos de potência centrados em $\pm100Hz$, o que corresponde à frequência do sinal gerado. No entanto, devido à menor resolução espectral, os picos de frequência estão mais "largos", tornando o espectro um pouco mais disperso.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{03_results/assets/sin__100Hz_fs2k_SPECTRUM_400smp}
+    \caption{Sinal 100Hz, 400 amostras - Espectro de Magnitude e sua fase.}
+    \label{fig:spec-signal-100-400}
+\end{figure}
+
+No espectro de fase, notamos uma transição abrupta nas proximidades dos picos de frequência, como esperado para o sinal. A resolução da fase também é influenciada pela quantidade de amostras, o que pode contribuir para a suavidade na variação de fase com mais amostras.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{03_results/assets/sin__100Hz_fs2k_SIGNAL_600smp.png}
+    \caption{Sinal senoidal de entrada com 100Hz e 600 amostras.}
+    \label{fig:input-signal-100-600}
+\end{figure}
+
+Na Figura~\ref{fig:spec-signal-100-600}, o espectro de magnitude também exibe picos centrados em $\pm100Hz$. Devido à maior resolução espectral, os picos são mais definidos e estreitos em comparação com o caso de 400 amostras. %Esse comportamento reflete uma representação mais precisa das componentes de frequência do sinal original.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{03_results/assets/sin__100Hz_fs2k_SPECTRUM_600smp.png}
+    \caption{Sinal senoidal 100Hz, 600 amostras - Espectro de Magnitude e sua fase.}
+    \label{fig:spec-signal-100-600}
+\end{figure}
+
+O espectro de fase é mais suave e contínuo com 600 amostras. Essa suavidade indica uma maior precisão na representação da fase ao longo das frequências, o que é benéfico para a análise de fase de sinais periódicos.
+
+\subsection{Diferentes frequências de sinal e de amostragem}
+Baseado no principio de realizar diferentes medições com diferentes valores de amostragem e 
+
+\input{03_results/01_discussions}
