@@ -1,4 +1,4 @@
-function X = frequencyDizimationFFT(x)
+function [X, sumInteractions, prodInteractions] = frequencyDizimationFFT(x)
     % Input:
     %   x - Input signal (vector)
     % Output:
@@ -9,12 +9,9 @@ function X = frequencyDizimationFFT(x)
     % Base case: If the signal length is 1, the FFT is the signal itself
     if N == 1
         X = x;
+        sumInteractions = 0;
+        prodInteractions = 0;
         return;
-    end
-
-    % Ensure the input length is a power of 2 (zero-padding if necessary)
-    if mod(N, 2) ~= 0
-        error('Input length must be a power of 2.');
     end
 
     % Split the signal into even and odd indexed parts
@@ -22,14 +19,21 @@ function X = frequencyDizimationFFT(x)
     x_odd = x(2:2:end);
 
     % Recursively compute the FFT of the even and odd parts
-    X_even = frequencyDizimationFFT(x_even);
-    X_odd = frequencyDizimationFFT(x_odd);
+    [X_even, evenSums, evenProds] = frequencyDizimationFFT(x_even);
+    [X_odd, oddSums, oddProds] = frequencyDizimationFFT(x_odd);
+
+    sumInteractions = evenSums + oddSums;
+    prodInteractions = evenProds + oddProds;
 
     % Combine the results
     X = zeros(1, N);
     for k = 1:(N / 2)
-        twiddle = exp(-j * 2 * pi * (k - 1) / N);
-        X(k) = X_even(k) + twiddle * X_odd(k);
-        X(k + N / 2) = X_even(k) - twiddle * X_odd(k);
+        expValue = exp(-j * 2 * pi * (k - 1) / N);
+        expValue *= X_odd(k);
+        prodInteractions += 1;
+
+        X(k) = X_even(k) + expValue;
+        X(k + N / 2) = X_even(k) - expValue;
+        sumInteractions += 2;
     end
 end
