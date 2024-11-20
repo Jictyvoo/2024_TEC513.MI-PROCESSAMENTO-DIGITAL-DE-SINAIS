@@ -9,5 +9,18 @@ Assim sendo, para gerar o sinal, foi desenvolvida uma função chamada \textit{g
 
 \markdownInput{03_experimental_analysis/signal_gen.md}
 
+\subsubsection*{Valores esperados no Eixo da Frequência (em Hz)}
+
+Considerando que a função $x(t)$ é composta por cossenos com frequências $100 \, \text{Hz}$, $250 \, \text{Hz}$, $750 \, \text{Hz}$ e $1000 \, \text{Hz}$, espera-se que as magnitudes dos coeficientes da DFT apresentem picos nestas frequências.
+
+Portanto, espera-se que em cada frequência do espectro sejam observados picos de amplitude proporcionais aos coeficientes de cada componente da função $x(t)$. Os valores esperados são:
+
+\begin{itemize}
+    \item \textbf{Frequência: $100 \, \text{Hz}$} — Pico na amplitude do coeficiente correspondente.
+    \item \textbf{Frequência: $250 \, \text{Hz}$} — Pico na amplitude 3 vezes maior que o do cosseno de $100 \, \text{Hz}$.
+    \item \textbf{Frequência: $750 \, \text{Hz}$} — Pico na amplitude 5 vezes maior que o do cosseno de $100 \, \text{Hz}$.
+    \item \textbf{Frequência: $1000 \, \text{Hz}$} — Pico na amplitude 7 vezes maior que o do cosseno de $100 \, \text{Hz}$.
+\end{itemize}
+
 \subsection{Questões}
 \input{03_experimental_analysis/02_questions.tex}

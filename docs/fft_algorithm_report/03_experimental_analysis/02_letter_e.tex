@@ -1,0 +1,23 @@
+\subsubsection*{(f) \textbf{(1,0 pontos)}}
+Monte numa tabela comparativa a quantidade de operações (produtos e somas) realizadas.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lccc}
+    \textit{\textbf{Amostras}}            & \textbf{DFT (Ops)} & \textbf{FFT (Sums)} & \textbf{FFT (Mult)} \\
+    \textit{32}                       & 1024                                & 160                  & 80                            \\
+    \textit{32 + 32 0s}     & 4096                                & 384                  & 192                           \\
+    \textit{64}                       & 4096                                & 384                  & 192                           \\
+    \textit{64 + 64 0s}     & 16384                               & 896                  & 448                           \\
+    \textit{128}                      & 16384                               & 896                  & 448                           \\
+    \textit{128 + 128 0s}   & 65536                               & 2048                 & 1024                          \\
+    \textit{256}                      & 65536                               & 2048                 & 1024                          \\
+    \textit{256 + 256 0s}   & 262144                              & 4608                 & 2304                          \\
+    \textit{512}                      & 262144                              & 4608                 & 2304                          \\
+    \textit{512 + 512 0s}   & 1048576                             & 10240                & 5120                          \\
+    \textit{1024}                     & 1048576                             & 10240                & 5120                          \\
+    \textit{1024 + 1024 0s} & 4194304                             & 22528                & 11264                        
+    \end{tabular}
+    \caption{Comparativo da quantidade de operações (produtos e somas) realizadas em diferentes configurações de amostras.}
+    \label{tab:operacoes_comparativo}
+\end{table}
