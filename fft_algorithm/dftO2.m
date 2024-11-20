@@ -2,7 +2,7 @@ function [Xjw, sumInteractions, prodInteractions] = dftO2(x)
     % Input:
     %   x - Sinal de Entrada (vetor)
     % Output:
-    %   X - FFT do sinal de entrada
+    %   Xjw - FFT do sinal de entrada
 
     N = length(x); % Número de amostras
     Xjw = zeros(1, N); % Inicializa o vetor de saída como zeros
