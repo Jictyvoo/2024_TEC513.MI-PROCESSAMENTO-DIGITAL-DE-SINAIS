@@ -54,7 +54,7 @@
     }
     \makeatother
 
-\title{Desenvolvimento e análise do algoritmo FFT\\
+\title{Desenvolvimento e análise comparativa dos algoritmos DFT e FFT
 }
 
 \author{
@@ -70,9 +70,9 @@ contact@jityvoo.dev}
 \maketitle
 
 \begin{abstract}
-    Neste trabalho, foram desenvolvidos dois algoritmos para calcular a Transformada de Fourier Discreta (DFT) e Fast Fourier Transform (FFT) com dizimação na frequência. O primeiro algoritmo é uma implementação básica da DFT, enquanto o segundo utiliza o algoritmo Cooley-Tukey para realizar a FFT. 
+    Neste trabalho, foram desenvolvidos dois algoritmos para calcular a Transformada de Fourier Discreta (DFT) e Fast Fourier Transform (FFT) com dizimação na frequência. 
 
-    As implementações no sinal fornecido foram testadas e analisadas em termos de precisão e complexidade computacional. Também é realizado o estudo do efeito do aumento do tamanho da janela na performance e resultado desses algoritmos.
+    Baseado na implementação e no sinal fornecido, foi realizado o estudo do efeito do aumento do tamanho da janela na performance e resultado desses algoritmos.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -85,8 +85,10 @@ contact@jityvoo.dev}
 \section{Análise experimental}
 \input{03_experimental_analysis/index.tex}
 
+\section{Conclusão}
+\input{03_experimental_analysis/03_conclusion.tex}
 
-\appendix
-\section{Detalhes Adicionais}
+%\appendix
+%\section{Detalhes Adicionais}
 
 \end{document}

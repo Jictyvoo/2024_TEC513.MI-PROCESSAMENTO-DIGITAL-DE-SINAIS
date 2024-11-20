@@ -1,40 +1,41 @@
 ```octave
-function [X, sumInteractions, prodInteractions] = frequencyDizimationFFT(x)
+function [Xjw, sumInteractions, prodInteractions] = frequencyDizimationFFT(x)
     % Input:
-    %   x - Input signal (vector)
+    %   x - Sinal de Entrada (vetor)
     % Output:
-    %   X - FFT of the input signal
+    %   Xjw - FFT do sinal de entrada
 
-    N = length(x); % Length of the input signal
+    N = length(x); % Tamanho do sinal de entrada
 
-    % Base case: If the signal length is 1, the FFT is the signal itself
+    % Caso base da recursao
     if N == 1
-        X = x;
+        Xjw = x;
         sumInteractions = 0;
         prodInteractions = 0;
         return;
     end
 
-    % Split the signal into even and odd indexed parts
+    % Divide o sinal de origem entre partes impares e partes pares
     x_even = x(1:2:end);
     x_odd = x(2:2:end);
 
-    % Recursively compute the FFT of the even and odd parts
+    % Executa a funcao da FFT de forma recursiva nas partes impares e pares
     [X_even, evenSums, evenProds] = frequencyDizimationFFT(x_even);
     [X_odd, oddSums, oddProds] = frequencyDizimationFFT(x_odd);
 
+    % Salva o valor da quantidade de somas e multiplicacoes realizadas
     sumInteractions = evenSums + oddSums;
     prodInteractions = evenProds + oddProds;
 
-    % Combine the results
-    X = zeros(1, N);
+    % Executa a funcao para calcular o valor final da FFT
+    Xjw = zeros(1, N);
     for k = 1:(N / 2)
         expValue = exp(-j * 2 * pi * (k - 1) / N);
         expValue *= X_odd(k);
         prodInteractions += 1;
 
-        X(k) = X_even(k) + expValue;
-        X(k + N / 2) = X_even(k) - expValue;
+        Xjw(k) = X_even(k) + expValue;
+        Xjw(k + N / 2) = X_even(k) - expValue;
         sumInteractions += 2;
     end
 end
