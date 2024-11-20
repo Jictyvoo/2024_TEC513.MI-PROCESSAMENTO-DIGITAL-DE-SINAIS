@@ -1,5 +1,4 @@
 function X = frequencyDizimationFFT(x)
-    % frequencyDizimationFFT - Computes the Fast Fourier Transform (FFT) of an input signal
     % Input:
     %   x - Input signal (vector)
     % Output:
