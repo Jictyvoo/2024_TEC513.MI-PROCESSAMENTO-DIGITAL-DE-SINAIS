@@ -1,4 +1,14 @@
+Foram desenvolvidos os algoritmos da DFT e da FFT com dizimação na frequência através da ferramenta \textit{Octave}.
+
 \subsection*{1. Algoritmo DFT \textbf{(2,0 pontos)}}
+A fórmula da DFT é dada por:
+$$
+X(k) = \sum_{n=0}^{N-1} x(n) e^{-j(2\pi/N)nk}
+$$
+
+Como o valor $X(k)$ é dado por uma somatória, no final o algoritmo da DFT terá complexidade $O(N^2)$.
+
+\markdownInput{01_algorithm_development/01_dft_algorithm.md}
 
 \subsection*{2. Algoritmo FFT com dizimação na frequência \textbf{(2,0 pontos)}}
-\markdownInput{01_algorithm_development/fft_algorithm.md}
+\markdownInput{01_algorithm_development/02_fft_algorithm.md}
