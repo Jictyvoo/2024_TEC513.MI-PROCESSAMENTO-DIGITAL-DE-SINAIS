@@ -1,4 +1,6 @@
-image = noiseImage(0);
+setup;
+
+image = noiseImage(3);
 
 % Known noise frequency as a fraction of the image width
 noiseFrequency = 100 / size(image, 2);
@@ -19,8 +21,14 @@ title('Fixed Image');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Start to processing audio part
-[audio_data, Fs] = audioread('assets/noise_signal.wav');
-[fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audio_data, Fs);
+[audioData, Fs] = audioread('assets/noise_signal.wav');
+
+% [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
+lowCutoff = 3180; % in Hz
+[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
+
+% Extract the first 200ms of the audio as noise spectrum
+[_, noiseSpectrum] = extractAudioNoise(audioData, Fs);
 
 % Plot the original and cleaned spectrums
 figure(2);
