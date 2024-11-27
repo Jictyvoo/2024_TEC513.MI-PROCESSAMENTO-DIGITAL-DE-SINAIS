@@ -25,7 +25,8 @@ title('Fixed Image');
 
 % [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
 lowCutoff = 3180; % in Hz
-[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
+%[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
+[fixedAudio, audioSpectrum, cleanSpectrum] = audioElliptical(audioData, Fs, lowCutoff);
 
 % Extract the first 200ms of the audio as noise spectrum
 [_, noiseSpectrum] = extractAudioNoise(audioData, Fs);
