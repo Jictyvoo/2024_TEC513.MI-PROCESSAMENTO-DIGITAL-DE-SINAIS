@@ -2,6 +2,8 @@
 
 ## 3.1 Tema: Processamento digital de sinais de voz e imagem
 
+## 3.2 Cronograma:
+
 | Data  | Grupo Tutorial                                   |
 | ----- | ------------------------------------------------ |
 | 08/11 | Apresentação do Problema 03 – PBL                |
