@@ -1,0 +1,112 @@
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{svg}
+\usepackage{hyperref}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\makeatletter
+\newcommand{\linebreakand}{%
+    \end{@IEEEauthorhalign}
+    \hfill\mbox{}\par
+    \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+\title{Problema 1: Análise Matemática Comparativa da Amostragem de Sinais Analógicos\\
+}
+
+\author{
+    \IEEEauthorblockN{1\textsuperscript{st} João Victor Oliveira Couto}
+    \IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+        \textit{Universidade Estadual de Feira de Santana}\\
+        Feira de Santana, Bahia, Brasil \\
+        contact@jityvoo.dev}
+    \and
+    \IEEEauthorblockN{2\textsuperscript{nd} Marcus Aldrey}
+    \IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+        \textit{Universidade Estadual de Feira de Santana}\\
+        Feira de Santana, Bahia, Brasil \\
+        marcusaldrey@gmail.com}
+    \IEEEauthorblockN{}
+    \IEEEauthorblockA{}
+}
+
+\maketitle
+
+\begin{abstract}
+    Este trabalho apresenta a simulação e análise de um ADC Dual-Slope de 6 bits usando o simulador Falstad. O sistema converte um sinal de entrada senoidal de 1 Hz em uma saída digital quantizada. A simulação demonstra o processo de integração e quantização, destacando os 64 níveis discretos determinados pela resolução de 6 bits. Os resultados validam a funcionalidade do ADC, enfatizando sua adequação para aplicações de baixo custo e baixa precisão.
+\end{abstract}
+
+\begin{IEEEkeywords}
+    ADC Rampa Dupla; Quantização de sinal; Resolução de 6 bits
+\end{IEEEkeywords}
+
+\section{Introdução}
+\input{01_introduction}
+
+\section{Fundamentação teórica}
+% Aqui entra a pasta com o conteúdo de como a análise analítica foi realizada
+\input{02_analytic_development/00_index_development}
+
+\section{Resultados e discussões}
+\input{03_results/index_results}
+
+\section{Conclusões}
+\input{04_conclusion}
+
+
+\begin{thebibliography}{00}
+    \bibitem{b1} SANCA, A.S. TEC501 - Eletrônica para Processamento Digital de Sinais : Notas de Aula. Universidade Estadual De Feira De Santana - Departamento De Tecnologia (DTEC). 2024.
+
+\end{thebibliography}
+
+
+\appendix
+\section{Detalhes Adicionais}
+\input{05_development_in_simulator/05_appedinx_index}
+
+\end{document}

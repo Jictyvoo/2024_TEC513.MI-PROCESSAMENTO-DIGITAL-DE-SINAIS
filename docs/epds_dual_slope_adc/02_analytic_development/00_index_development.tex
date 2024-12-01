@@ -1,0 +1,21 @@
+Um conversor A/D tem como finalidade transformar uma grandeza física analógica em um dado digital, em um processo chamado de quantização. Já a conversão oposta, de digital para analógico, é realizada pelos conversores D/A. Um exemplo prático desse tipo de conversor são os termômetros digitais e os conversores de sinal de TV. Nesse caso, a temperatura e o sinal da TV, inicialmente grandezas analógicas, são convertidas em formato digital para que o sistema consiga processá-las e apresentá-las. O funcionamento básico desses conversores podem ser representados pelo diagrama de blocos na figura \ref{fig:diagrama-conversor}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{conversorAD.png}
+    \caption{Diagrama de blocos de conversor A/D}
+    \label{fig:diagrama-conversor}
+\end{figure}
+
+Ao longo das décadas de estudo sobre conversores A/D, diversos modelos com diferentes princípios de funcionamento foram desenvolvidos. Entre os modelos disponíveis atualmente, destaca-se o conversor A/D de rampa dupla. Esse tipo de conversor, amplamente utilizado em multímetros digitais, apresenta vantagens significativas em relação a outros modelos, como o de rampa simples. Sua implementação é mais simples e oferece maior precisão, uma vez que elimina as variações causadas por resistores e capacitores no circuito.
+
+O conversor A/D de Rampa Dupla é composto por elementos como resistores, capacitores, amplificadores operacionais e circuitos de controle, que atuam em conjunto para realizar a conversão do sinal analógico em digital com alta precisão. Esses componentes são organizados de forma a assegurar o funcionamento adequado das etapas de integração e desintegração do sinal. A configuração básica do conversor está ilustrada na Figura ~\ref{fig:basic_dual_slope_schematic}.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=1\linewidth]{03_results/assets/dual_slop_adc_basic_schematic.svg}
+    \caption{Esquemático base do conversor ADC Rampa Dupla}
+    \label{fig:basic_dual_slope_schematic}
+\end{figure}
+
+\input{02_analytic_development/02_integration_period_development}

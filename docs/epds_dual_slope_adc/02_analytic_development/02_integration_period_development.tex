@@ -1,0 +1,60 @@
+\subsection{Funcionamento do ADC de Rampa Dupla e Derivação Matemática}
+O conversor ADC de Rampa Dupla opera em dois períodos de integração:
+
+\subsubsection{Primeira Integração ($T_1$)}
+Durante o período $T_1$, a chave conecta o sinal de entrada $V_I$ ao integrador. O integrador acumula a área do sinal de entrada, resultando em uma tensão $V_{CO}$ ao final de $T_1$. A duração de $T_1$ é fixa e depende da frequência do clock ($f_{clock}$) e da resolução ($N$) do conversor:
+$$
+    T_1 = \frac{2^N}{f_{clock}},
+$$
+
+A saída do integrador ao final de $T_1$ é dada por:
+$$
+    V_{CO} = -\frac{1}{R \cdot C} \int_0^{T_1} V_I \, dt = -\frac{V_I \cdot T_1}{R \cdot C}.
+$$
+
+
+\subsubsection{Segunda Integração ($T_2$)}
+Após $T_1$, a chave conecta a tensão de referência negativa $-V_R$ ao integrador. Durante esse período, o integrador descarrega completamente, resultando em $V_{CO} = 0$ no final do tempo $T_2$. A tensão do integrador durante $T_2$ é descrita por:
+\begin{align} \
+    V_{CO} = -\frac{1}{R \cdot C} \left(\int_{T_1}^{T_1 + T_2} (-V_R) \, dt \right) - \frac{V_I \cdot T_1}{R \cdot C} \\
+    V_{CO} = \frac{V_R \cdot T_2}{R \cdot C} - \frac{V_I \cdot T_1}{R \cdot C}.
+\end{align}
+
+Quando o capacitor descarrega completamente ($V_{CO} = 0$), temos:
+$$
+    \frac{V_R \cdot T_2}{R \cdot C} = \frac{V_I \cdot T_1}{R \cdot C}.
+$$
+
+Simplificando:
+$$
+    V_I \cdot T_1 = V_R \cdot T_2 \quad \Rightarrow \quad V_I = \frac{V_R \cdot T_2}{T_1}.
+$$
+
+\subsubsection{Relacionando o Tempo $T_2$ ao Valor Digital}
+Sabendo que $T_1$ é fixo e equivale a $2^N / f_{clock}$, e que o tempo $T_2$ é proporcional ao valor digital $D$ gerado pelo contador, podemos reescrever $T_2$ como:
+$$
+    T_2 = D \cdot T_{clock}\, \text{, onde}\, T_{clock} = 1 / f_{clock}
+$$
+
+Substituindo $T_2$ na equação de $V_I$, temos:
+$$
+    V_I = V_R \cdot \frac{D \cdot T_{clock}}{T_1}.
+$$
+
+Substituindo $T_1 = 2^N / f_{clock}$:
+$$
+    V_I = V_R \cdot \frac{D \cdot (1 / f_{clock})}{2^N / f_{clock}} = V_R \cdot \frac{D}{2^N}.
+$$
+
+Assim, o valor digital $D$ que representa o sinal de entrada $V_I$ é dado por:
+$$
+    D = \frac{2^N \cdot V_I}{V_R}.
+$$
+
+Graficamente, o período de integração e desintegração de um conversor AD rampa dupla é representado pela figura \ref{fig:dual_slope_integrator_graph}, onde o período $T_{1}$ é a integração, quando o circuito integrador tem como entrada a tensão $V_{in}$ a ser convertida, e o período $T_{2}$ é a desintegração, que possui como entrada a tensão $V_{ref}$ de referência, que é fixa nas definições do projeto.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{dual_slope.png}
+    \caption{Gráfico de saída do circuito integrador de um conversor rampa dupla}
+    \label{fig:dual_slope_integrator_graph}
+\end{figure}
