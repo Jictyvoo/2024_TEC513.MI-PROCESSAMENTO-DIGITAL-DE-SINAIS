@@ -1,0 +1,51 @@
+
+$$
+    n = \left[ \frac{\log{\frac{10^{\alpha_s/10}- 1}{10^{\alpha_p/10}-1}}}{2\log{\omega_s/\omega_p}} \right]
+$$
+
+Para um filtro num sinal com:
+- Banda passante $\omega_p=2600 \, \text{Hz}$
+- Banda stop $\omega_s = 3700\, \text{Hz}$
+- Atenuação da banda passante $\alpha_p = 3dB$
+- Atenuação da banda cortante $\alpha_s = 20dB$
+
+
+\subsubsection{Executando o cálculo}
+Incialmente, devemos realizar o cálculo da ordem do filtro:
+
+\begin{align} \
+    n = \left[ \frac{\log{\frac{10^{20/10}- 1}{10^{3/10}-1}}}{2\log{(2\pi \cdot3700/2\pi\cdot 2600)}} \right] \\
+    n = \left[ \frac{\log{\frac{100- 1}{1.99526231497-1}}}{2\log{1.42307692308}} \right]                      \\
+    n = \left[ \frac{\log{99.4712635161}}{0.30645675219} \right]                                              \\
+    n = \left[ \frac{1.99769763453}{0.30645675219} \right]                                                    \\
+    \\
+    \therefore n = 6
+\end{align}
+
+
+Em seguida, obtemos o valor de $A_{max}$ para calcular a função de transferência do filtro.
+
+$$
+    H(j\omega) = \frac{1}{\sqrt{1+\epsilon^2 \left( \frac{\omega}{\omega_p} \right)^{2n}}}
+$$
+
+Como na fórmula, é preciso o valor de $\epsilon$, que é calculado da seguinte forma:
+
+$$
+    \epsilon = \sqrt{10^{A_{max}/10}-1}
+$$
+
+Considerando que o nosso $A_{max}=3\, \text{dB}$, temos que:
+
+\begin{align} \
+    \epsilon = \sqrt{10^{0.3}-1}    \\
+    \epsilon = \sqrt{0.99526231497} \\
+    \therefore \epsilon = 0.99762834511
+\end{align}
+
+Aplicando na fórmula da função de transferência:
+
+\begin{align} \
+    H(j\omega) = \frac{1}{\sqrt{1+0.9976^2 \left( \frac{\omega}{2\pi \cdot 2600} \right)^{2\cdot 6}}} \\
+    H(j\omega) = \frac{1}{\sqrt{1+0.9953 \left( \frac{\omega}{2\pi \cdot 2600} \right)^{12}}}
+\end{align} \\
