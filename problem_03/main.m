@@ -23,20 +23,18 @@ title('Fixed Image');
 %Start to processing audio part
 [audioData, Fs] = audioread('assets/noise_signal.wav');
 
-% [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
-lowCutoff = 3180; % in Hz
-%[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
-[fixedAudio, audioSpectrum, cleanSpectrum] = audioElliptical(audioData, Fs, lowCutoff);
-
 % Extract the first 200ms of the audio as noise spectrum
 [_, noiseSpectrum] = extractAudioNoise(audioData, Fs);
+[noiseCutFreq, freqAxis] = checkMinimumSpectrumFrequency(noiseSpectrum, Fs);
+
+% [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
+passBand = 2600; % in Hz
+stopBand = noiseCutFreq; % in Hz
+%[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
+[fixedAudio, audioSpectrum, cleanSpectrum] = audioElliptical(audioData, Fs, passBand, stopBand);
 
 % Plot the original and cleaned spectrums
 figure(2);
-
-% Frequency axis (in Hz)
-n = length(audioSpectrum);
-freqAxis = (-n / 2:n / 2 - 1) * (Fs / n);
 
 subplot(3, 1, 1);
 plot(freqAxis, abs(fftshift(audioSpectrum)));
@@ -46,7 +44,7 @@ ylabel('Magnitude');
 grid on;
 
 subplot(3, 1, 2);
-plot(freqAxis, abs(fftshift(noiseSpectrum)));
+plot(freqAxis, real(fftshift(noiseSpectrum)));
 title('Noise Spectrum');
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
