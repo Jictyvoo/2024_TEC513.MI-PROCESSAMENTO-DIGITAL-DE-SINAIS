@@ -45,5 +45,8 @@
       ],
       "env": {}
     },
-  ]
+  ],
+  "files.eol": "\n",
+  "latex-workshop.bibtex-fields.sort.enabled": true,
+  "latex-workshop.formatting.latex": "latexindent"
 }
