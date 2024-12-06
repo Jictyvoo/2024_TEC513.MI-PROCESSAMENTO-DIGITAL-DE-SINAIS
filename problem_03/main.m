@@ -1,4 +1,6 @@
 setup;
+addpath('./imageFunctions');
+addpath('./audioFunctions');
 
 image = noiseImage(3);
 
