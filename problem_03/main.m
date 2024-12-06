@@ -10,6 +10,7 @@ noiseFrequency = 100 / size(image, 2);
 % Remove noise from the image
 %[fixedImage, fftImage, fftFixedImage, b, a] = imageButterworth(image, noiseFrequency);
 [fixedImage, fftImage, fftFixedImage, b, a] = imageChebyshev(image, noiseFrequency);
+%[fixedImage, fftImage, fftFixedImage] = removeImageNoise(image,noiseFrequency);
 
 % Compute the magnitude of the FFT
 magnitudeImage = log(1 + abs(fftImage));

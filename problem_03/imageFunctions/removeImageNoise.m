@@ -1,4 +1,4 @@
-function fixedImage = removeImageNoiseDirect(noisyImage, noiseFrequency)
+function [fixedImage, spectrum, fixedImageSpectrum] = removeImageNoise(noisyImage, noiseFrequency)
     % Convert the image to double for processing
     fn = double(noisyImage);
 
@@ -11,6 +11,7 @@ function fixedImage = removeImageNoiseDirect(noisyImage, noiseFrequency)
     % Compute the 2D Fourier Transform of the image
     spectrum = fft2(fn);
 
+    fixedImageSpectrum = spectrum;
     % Process the spectrum row by row
     for row = 1:N
         % Access the spectrum of the current row
@@ -21,14 +22,13 @@ function fixedImage = removeImageNoiseDirect(noisyImage, noiseFrequency)
         rowSpectrum(M - freqIndex + 1) = 0; % Negative frequency
 
         % Update the spectrum with the filtered row
-        spectrum(row, :) = rowSpectrum;
+        fixedImageSpectrum(row, :) = rowSpectrum;
     end
 
     % Reconstruct the image using the inverse 2D Fourier Transform
-    fixedImage = real(ifft2(spectrum));
+    fixedImage = real(ifft2(fixedImageSpectrum));
 
     % Normalize the image to its original range
     fixedImage = fixedImage - min(fixedImage(:));
     fixedImage = fixedImage / max(fixedImage(:)) * 255;
-
 endfunction
