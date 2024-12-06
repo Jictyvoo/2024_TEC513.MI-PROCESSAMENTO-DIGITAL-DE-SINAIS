@@ -1,6 +1,6 @@
 function [fn] = noiseImage(plotFigureID)
     % Leitura da Imagem
-    Read = imread('assets/image.jpg', 'tif');
+    Read = imread('assets/input_img_256x256.tif', 'tif');
 
     f = double(Read); % Conversao da variavel Read
 

@@ -8,18 +8,32 @@ image = noiseImage(3);
 noiseFrequency = 100 / size(image, 2);
 
 % Remove noise from the image
-fixedImage = removeImageNoise(image, noiseFrequency);
+[fixedImage, fftImage, fftFixedImage] = imageButterworth(image, noiseFrequency);
+
+% Compute the magnitude of the FFT
+magnitudeImage = log(1 + abs(fftImage));
+magnitudeFixedImage = log(1 + abs(fftFixedImage));
 
 % Display the original and fixed images
 figure(1);
 
-subplot(1, 2, 1);
+% Original noisy image and its FFT
+subplot(2, 2, 1);
 imshow(image, []);
 title('Noisy Image');
 
-subplot(1, 2, 2);
+subplot(2, 2, 2);
+imshow(magnitudeImage, []);
+title('FFT of Noisy Image');
+
+% Fixed image and its FFT
+subplot(2, 2, 3);
 imshow(uint8(fixedImage), []);
 title('Fixed Image');
+
+subplot(2, 2, 4);
+imshow(magnitudeFixedImage, []);
+title('FFT of Fixed Image');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Start to processing audio part
