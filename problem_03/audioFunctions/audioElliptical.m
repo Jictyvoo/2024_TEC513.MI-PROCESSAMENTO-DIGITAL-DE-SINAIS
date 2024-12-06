@@ -1,4 +1,4 @@
-function [fixedAudio, audioSpectrum, cleanSpectrum, H, W] = audioElliptical(audioData, fs, passBand, stopBand)
+function [fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioElliptical(audioData, fs, passBand, stopBand)
     % Normalize frequencies for filter design
     Wbands = ([passBand, stopBand] / 2) / (fs / 2); % Passband edge (normalized to Nyquist frequency)
     Wp = Wbands(1);

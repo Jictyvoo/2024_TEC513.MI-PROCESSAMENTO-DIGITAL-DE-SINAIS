@@ -1,7 +1,8 @@
-function [fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, fs, lowCutoff)
+function [fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioButterworth(audioData, fs, passBand, stopBand)
     % Normalize frequencies for filter design
-    Wp = lowCutoff / (fs / 2); % Passband edge (normalized to Nyquist frequency)
-    Ws = min(Wp * 1.2, 0.99); % Stopband edge slightly above passband edge, ensure < 1 (Nyquist limit)
+    Wbands = ([passBand, stopBand] / 2) / (fs / 2); % Passband edge (normalized to Nyquist frequency)
+    Wp = Wbands(1);
+    Ws = Wbands(2);
 
     % Filter design parameters
     Rp = 3; % Passband ripple in dB

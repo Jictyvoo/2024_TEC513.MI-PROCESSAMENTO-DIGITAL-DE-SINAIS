@@ -8,7 +8,8 @@ image = noiseImage(3);
 noiseFrequency = 100 / size(image, 2);
 
 % Remove noise from the image
-[fixedImage, fftImage, fftFixedImage] = imageButterworth(image, noiseFrequency);
+%[fixedImage, fftImage, fftFixedImage, b, a] = imageButterworth(image, noiseFrequency);
+[fixedImage, fftImage, fftFixedImage, b, a] = imageChebyshev(image, noiseFrequency);
 
 % Compute the magnitude of the FFT
 magnitudeImage = log(1 + abs(fftImage));
@@ -46,8 +47,9 @@ title('FFT of Fixed Image');
 % [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
 passBand = 2600; % in Hz
 stopBand = noiseCutFreq; % in Hz
-%[fixedAudio, audioSpectrum, cleanSpectrum] = audioButterworth(audioData, Fs, lowCutoff);
-[fixedAudio, audioSpectrum, cleanSpectrum] = audioElliptical(audioData, Fs, passBand, stopBand);
+[fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioButterworth(audioData, Fs, passBand, stopBand);
+%[fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioElliptical(audioData, Fs, passBand, stopBand);
+bodePlot(5, b, a);
 
 % Plot the original and cleaned spectrums
 figure(2);

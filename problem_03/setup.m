@@ -1,7 +1,7 @@
 % setup.m - Install and load required packages for the project
 
 % List of required packages
-required_packages = {'signal'};
+required_packages = {'signal', 'control'};
 
 % Check if the package is installed
 for i = 1:length(required_packages)
