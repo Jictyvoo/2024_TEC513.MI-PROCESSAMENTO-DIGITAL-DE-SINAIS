@@ -1,4 +1,4 @@
-function [fixedImage, imageFreqSpectrum, cleanSpectrum, b, a] = imageButterworth(imageData, centralFrequency)
+function [fixedImage, imageFreqSpectrum, cleanSpectrum, b, a] = imageButterworth(imageData)
     % Normalize frequencies for filter design
     freqRange = 10;
     fs = 256;

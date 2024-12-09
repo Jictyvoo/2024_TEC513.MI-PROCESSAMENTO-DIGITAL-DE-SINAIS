@@ -1,4 +1,4 @@
-function [fixedImage, imageFreqSpectrum, cleanSpectrum, H, W] = imageChebyshev(imageData, centralFrequency)
+function [fixedImage, imageFreqSpectrum, cleanSpectrum, H, W] = imageChebyshev(imageData)
     % Normalize frequencies for filter design
     freqRange = 10;
     fs = 256;
