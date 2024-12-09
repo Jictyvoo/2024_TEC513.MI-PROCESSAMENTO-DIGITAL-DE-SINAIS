@@ -4,38 +4,55 @@ addpath('./audioFunctions');
 [audioData, Fs] = audioread('assets/noise_signal.wav');
 
 % Extract the first 200ms of the audio as noise spectrum
-[_, noiseSpectrum] = extractAudioNoise(audioData, Fs);
+[~, noiseSpectrum] = extractAudioNoise(audioData, Fs);
 [noiseCutFreq, freqAxis] = checkMinimumSpectrumFrequency(noiseSpectrum, Fs);
 
-% [fixedAudio, audioSpectrum, noiseSpectrum, cleanSpectrum] = removeAudioNoise(audioData, Fs);
+% Define filter specifications
 passBand = 1000; % in Hz
 stopBand = 2000; % in Hz
-%[fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioButterworth(audioData, Fs, passBand, stopBand);
-[fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioElliptical(audioData, Fs, passBand, stopBand);
-bodePlot(5, b, a);
 
-% Plot the original and cleaned spectrums
-figure(2);
+% Define the filter functions as handles
+filterFunctions = {@audioElliptical, @audioButterworth};
 
-subplot(3, 1, 1);
-plot(freqAxis, abs(fftshift(audioSpectrum)));
-title('Original Audio Spectrum');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+figureIndexes = 0;
+% Loop over the filter functions
+for index = 1:length(filterFunctions)
+    % Call the current filter function using function handle
+    [fixedAudio, audioSpectrum, cleanSpectrum, b, a] = filterFunctions{index}(audioData, Fs, passBand, stopBand);
 
-subplot(3, 1, 2);
-plot(freqAxis, real(fftshift(noiseSpectrum)));
-title('Noise Spectrum');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+    % Plot the frequency response (Bode plot)
+    H = tf(b, a); % Create a transfer function object from b and a
+    figure(figureIndexes + 1);
 
-subplot(3, 1, 3);
-plot(freqAxis, abs(fftshift(cleanSpectrum)));
-title('Fixed Audio Spectrum');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+    % Plot using the bode function from Octave's control package
+    grid on;
+    bode(H);
+    title([func2str(filterFunctions{index}), ' - Bode Plot']);
 
-sound(fixedAudio, Fs);
+    % Plot the original and cleaned spectrums
+    figure(figureIndexes + 2);
+    subplot(3, 1, 1);
+    plot(freqAxis, abs(fftshift(audioSpectrum)));
+    title([func2str(filterFunctions{index}), ' - Original Audio Spectrum']);
+    xlabel('Frequency (Hz)');
+    ylabel('Magnitude');
+    grid on;
+
+    subplot(3, 1, 2);
+    plot(freqAxis, real(fftshift(noiseSpectrum)));
+    title('Noise Spectrum');
+    xlabel('Frequency (Hz)');
+    ylabel('Magnitude');
+    grid on;
+
+    subplot(3, 1, 3);
+    plot(freqAxis, abs(fftshift(cleanSpectrum)));
+    title([func2str(filterFunctions{index}), ' - Fixed Audio Spectrum']);
+    xlabel('Frequency (Hz)');
+    ylabel('Magnitude');
+    grid on;
+
+    % Play the filtered audio
+    %sound(fixedAudio, Fs);
+    figureIndexes += 2;
+end
