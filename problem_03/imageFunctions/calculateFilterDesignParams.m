@@ -1,4 +1,4 @@
-function [Wp, Ws, Rp, Rs, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs)
+function [Wp, Ws, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs)
     % Normalize frequencies for filter design
     freqRange = 10; % Frequency range for the filter design
 
@@ -19,8 +19,4 @@ function [Wp, Ws, Rp, Rs, radialDistance] = calculateFilterDesignParams(imageFre
     % Ensure stopband frequencies are within the range [0, 1]
     Ws(Ws < 0) = 0; % Set values less than 0 to 0
     Ws(Ws > 1) = 1; % Set values greater than 1 to 1
-
-    % Filter design parameters
-    Rp = 3; % Passband ripple in dB
-    Rs = 40; % Stopband attenuation in dB
 end

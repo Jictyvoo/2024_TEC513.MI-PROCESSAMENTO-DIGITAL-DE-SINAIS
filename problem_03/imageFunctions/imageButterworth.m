@@ -4,7 +4,10 @@ function [fixedImage, imageFreqSpectrum, cleanSpectrum, b, a] = imageButterworth
     fs = 256;
     % Compute the frequency spectrum of the image data
     imageFreqSpectrum = fftshift(fft2(imageData));
-    [Wp, Ws, Rp, Rs, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs);
+    [Wp, Ws, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs);
+
+    Rp = 0.1; % Passband ripple in dB
+    Rs = 20; % Stopband attenuation in dB
 
     % Determine the optimal filter order and cutoff frequency
     [n, Wn] = buttord(Wp, Ws, Rp, Rs);
