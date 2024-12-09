@@ -1,11 +1,11 @@
 function [fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioElliptical(audioData, fs, passBand, stopBand)
     % Normalize frequencies for filter design
-    Wbands = ([passBand, stopBand] / 2) / (fs / 2); % Passband edge (normalized to Nyquist frequency)
+    Wbands = ([passBand, stopBand]) / (fs / 2); % Passband edge (normalized to Nyquist frequency)
     Wp = Wbands(1);
     Ws = Wbands(2);
 
     % Filter design parameters
-    Rp = 3; % Passband ripple in dB
+    Rp = 1; % Passband ripple in dB
     Rs = 40; % Stopband attenuation in dB
 
     % Ensure Wp and Ws are valid for butterworth filter design
