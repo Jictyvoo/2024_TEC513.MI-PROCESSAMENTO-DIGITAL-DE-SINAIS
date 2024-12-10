@@ -14,30 +14,12 @@ O filtro \textbf{Butterworth} é caracterizado por sua resposta suave e sem ondu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{03_results/assets/audio_butterworth_bode.png}
-    \caption{Diagrama de Bode para o filtro Butterworth aplicado ao áudio.}
-    \label{fig:audio_butterworth_bode}
-\end{figure}
-
-O \textbf{diagrama de Bode} do filtro Butterworth, mostrado na figura \ref{fig:audio_butterworth_bode}, revela como a magnitude do sinal diminui suavemente após uma determinada frequência de corte. A ausência de oscilações na resposta de magnitude é um dos principais atributos do filtro Butterworth, tornando-o ideal para aplicações onde é necessário evitar distorções no sinal.
-
-\begin{figure}[H]
-    \centering
     \includegraphics[width=1\linewidth]{03_results/assets/audio_elliptical_spectrums.png}
     \caption{Espectro de frequência do sinal de áudio antes e após a aplicação do filtro Elíptico.}
     \label{fig:audio_elliptical_spectrums}
 \end{figure}
 
 O filtro \textbf{Elíptico}, diferente do Butterworth, apresenta uma atenuação mais agressiva nas frequências fora da faixa passante. A principal característica desse filtro é a \textbf{ondulação} na resposta de magnitude, tanto na faixa passante quanto na faixa de rejeição. Isso permite uma filtragem mais eficiente, removendo frequências indesejadas de forma mais agressiva. No entanto, as oscilações na transição entre a faixa passante e a faixa de rejeição podem resultar em distorções perceptíveis, especialmente quando a integridade do sinal precisa ser preservada.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{03_results/assets/audio_elliptical_bode.png}
-    \caption{Diagrama de Bode para o filtro Elíptico aplicado ao áudio.}
-    \label{fig:audio_elliptical_bode}
-\end{figure}
-
-O \textbf{diagrama de Bode} da figura \ref{fig:audio_elliptical_bode} ilustra como o filtro Elíptico proporciona uma atenuação mais agressiva em comparação com o filtro Butterworth. A magnitude da resposta apresenta oscilações, o que é característico dos filtros Elípticos. Estas oscilações são uma desvantagem, mas a eficiência na remoção de ruídos é superior, sendo mais eficaz para eliminar frequências específicas.
 
 \subsection{Resultados da filtragem em Imagem Digital}
 Como apresentado na Figura ~\ref{fig:image_original_plus_noise}, foi carregada uma imagem original 256x256 pixels, e aplicado um ruído senoidal na mesma.
@@ -49,6 +31,7 @@ Como apresentado na Figura ~\ref{fig:image_original_plus_noise}, foi carregada u
     \label{fig:image_original_plus_noise}
 \end{figure}
 
+A figura \ref{fig:image_direct_remove_noise} mostra o efeito de uma \textbf{remoção direta de ruído} na imagem. Embora simples, essa técnica pode resultar em perda de detalhes finos e pode afetar as bordas ou áreas de transição entre regiões de diferentes intensidades. Em imagens com ruído de alta frequência, o método direto pode ser útil, mas suas limitações incluem a possível suavização excessiva de áreas importantes da imagem.
 
 \begin{figure}[H]
     \centering
@@ -57,7 +40,7 @@ Como apresentado na Figura ~\ref{fig:image_original_plus_noise}, foi carregada u
     \label{fig:image_direct_remove_noise}
 \end{figure}
 
-A figura \ref{fig:image_direct_remove_noise} mostra o efeito de uma \textbf{remoção direta de ruído} na imagem. Embora simples, essa técnica pode resultar em perda de detalhes finos e pode afetar as bordas ou áreas de transição entre regiões de diferentes intensidades. Em imagens com ruído de alta frequência, o método direto pode ser útil, mas suas limitações incluem a possível suavização excessiva de áreas importantes da imagem.
+Na figura \ref{fig:image_butterworth}, vemos a imagem original ao lado da imagem filtrada com o filtro Butterworth. Este filtro é eficaz na remoção de ruído de alta frequência sem afetar significativamente as bordas ou detalhes importantes da imagem. Ele suaviza as transições, mas mantém a maior parte da estrutura da imagem. Como resultado, o filtro Butterworth é uma escolha adequada quando se deseja minimizar o impacto visual nas imagens filtradas, especialmente em áreas que contêm detalhes importantes.
 
 \begin{figure}[H]
     \centering
@@ -66,7 +49,7 @@ A figura \ref{fig:image_direct_remove_noise} mostra o efeito de uma \textbf{remo
     \label{fig:image_butterworth}
 \end{figure}
 
-Na figura \ref{fig:image_butterworth}, vemos a imagem original ao lado da imagem filtrada com o filtro Butterworth. Este filtro é eficaz na remoção de ruído de alta frequência sem afetar significativamente as bordas ou detalhes importantes da imagem. Ele suaviza as transições, mas mantém a maior parte da estrutura da imagem. Como resultado, o filtro Butterworth é uma escolha adequada quando se deseja minimizar o impacto visual nas imagens filtradas, especialmente em áreas que contêm detalhes importantes.
+A figura \ref{fig:image_chebyshev} mostra a aplicação do filtro \textbf{Chebyshev}. Este filtro, sendo mais agressivo do que o Butterworth, apresenta uma resposta em frequência mais acentuada, permitindo uma remoção mais eficaz de ruídos em frequências específicas. No entanto, ele também pode introduzir distorções visíveis, especialmente em áreas com transições suaves, como as bordas da imagem. As oscilações na resposta de frequência podem resultar em artefatos indesejáveis, tornando-o uma escolha mais arriscada quando a preservação da qualidade visual é crítica.
 
 \begin{figure}[H]
     \centering
@@ -74,5 +57,3 @@ Na figura \ref{fig:image_butterworth}, vemos a imagem original ao lado da imagem
     \caption{Imagem filtrada e seu espectro com o filtro Chebyshev.}
     \label{fig:image_chebyshev}
 \end{figure}
-
-A figura \ref{fig:image_chebyshev} mostra a aplicação do filtro \textbf{Chebyshev}. Este filtro, sendo mais agressivo do que o Butterworth, apresenta uma resposta em frequência mais acentuada, permitindo uma remoção mais eficaz de ruídos em frequências específicas. No entanto, ele também pode introduzir distorções visíveis, especialmente em áreas com transições suaves, como as bordas da imagem. As oscilações na resposta de frequência podem resultar em artefatos indesejáveis, tornando-o uma escolha mais arriscada quando a preservação da qualidade visual é crítica.

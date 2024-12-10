@@ -46,24 +46,29 @@ Em seguida, aplicamos a transformação tangente para essas frequências normali
     \\
     \text{Aplicando a transformação tangente}                            \\
     \\
-    \text{passb} = \tan\left(\frac{\pi \cdot [0.7656, 0.7969]}{2}\right) \\ \quad \Rightarrow \quad \text{passb} = [2.5924, 3.027] \\
-    \text{stopb} = \tan\left(\frac{\pi \cdot [0.7734, 0.7891]}{2}\right) \\ \quad \Rightarrow \quad \text{stopb} = [2.6903, 2.9068]
+    \text{passb} = \tan\left(\frac{\pi \cdot [0.7656, 0.7969]}{2}\right) \\ \quad \Rightarrow \quad \text{passb} = [2.592099, 3.027442] \\
+    \text{stopb} = \tan\left(\frac{\pi \cdot [0.7734, 0.7891]}{2}\right) \\ \quad \Rightarrow \quad \text{stopb} = [2.689781, 2.907342]
 \end{align*}
 
 
 Com as frequências passante ($\text{passb}$) e rejeição ($\text{stopb}$) transformadas, podemos calcular o valor de $\text{freqRatio}$ usando a fórmula:
 
 $$
-    \text{freqRatio} = \frac{\text{stopb}(1) \cdot (\text{passb}(1) - \text{passb}(2))}{\text{stopb}(1)^2 - \text{passb}(1) \cdot \text{passb}(2)}
+    \text{freqRatio} = \text{min}_{\text{absoluto}} \left(\frac{\text{stopb} \cdot (\text{passb}[1] - \text{passb}[2])}{\text{stopb}^2 - \text{passb}[1] \cdot \text{passb}[2]} \right)
 $$
 
 Substituindo os valores:
 
 \begin{align*} \
-    \text{freqRatio} = \frac{2.6903 \cdot (2.5924 - 3.027)}{2.6903^2 - 2.5924 \cdot 3.027} \\
-    \text{freqRatio} = \frac{2.6903 \cdot (-0.4346)}{7.2392 - 7.8541}                      \\
-    \text{freqRatio} = \frac{-1.1704}{-0.6149}                                             \\
-    \text{freqRatio} = 1.9176
+    \text{freqRatio} = \frac{\{2.689781, 2.907342\} \cdot (2.592099 - 3.027442)}{\{2.689781, 2.907342\}^2 - 2.592099 \cdot 3.027442} \\
+    \text{freqRatio} = \frac{\{2.689781, 2.907342\} \cdot (-0.4346)}{\{7.2392, 8.4526\} - 7.8541}                      \\
+    \\
+    \begin{array}{cc}
+        \text{freqRatio} = \frac{-1.1700}{-0.6149} & \text{freqRatio} = \frac{-1.2635}{0.5985} \\
+        \text{freqRatio} = 1.9027                  & \text{freqRatio} = -2.1111
+    \end{array}
+    \\
+    \therefore \text{freqRation} = 1.9027
 \end{align*}
 
 Este é o valor de $\text{freqRatio}$ calculado a partir das frequências normalizadas e transformadas.
@@ -71,10 +76,10 @@ Este é o valor de $\text{freqRatio}$ calculado a partir das frequências normal
 Agora, vamos substituir os valores conhecidos na fórmula para calcular a ordem do filtro:
 
 \begin{align*} \
-    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{10^{60/10}- 1}{10^{10^{-2}}-1}}}}{\cosh^{-1}{freqRatio}} \right] \\
-    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{999999}{0.02329299}}}}{\cosh^{-1}{freqRatio}} \right]            \\
-    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{42931324.0643}}}{\cosh^{-1}{1.9176}} \right]                           \\
-    n = \text{ceil} \left[ \frac{\cosh^{-1}{6552.19994081}}{\cosh^{-1}{1.9176}} \right]                                  \\n = \text{ceil} \left[ \frac{9.480703}{1.268021} \right]                                     \\
-    n = \text{ceil} [7.47677128376]                                                                                      \\
-    \therefore n = 8
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{10^{60/10}- 1}{10^{1/10}-1}}}}{\cosh^{-1}{freqRatio}} \right] \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{999999}{0.2589}}}}{\cosh^{-1}{freqRatio}} \right]            \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{3862491.30939}}}{\cosh^{-1}{1.9027}} \right]                           \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{1965.3222}}{\cosh^{-1}{1.9027}} \right]                                  \\n = \text{ceil} \left[ \frac{8.27656}{1.2589} \right]                                     \\
+    n = \text{ceil} [6.5744]                                                                                      \\
+    \therefore n = 7
 \end{align*}
