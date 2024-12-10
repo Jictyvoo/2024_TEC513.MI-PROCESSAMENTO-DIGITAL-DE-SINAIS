@@ -39,20 +39,12 @@ for index = 1:length(filterFunctions)
     figure(index);
 
     % Original noisy image and its FFT
-    subplot(2, 2, 1);
-    imshow(image, []);
-    title('Noisy Image');
 
-    subplot(2, 2, 2);
-    imshow(magnitudeImage, []);
-    title('FFT of Noisy Image');
-
-    % Fixed image and its FFT
-    subplot(2, 2, 3);
+    subplot(1, 2, 1); % First plot: Fixed Image
     imshow(uint8(fixedImage), []);
     title([func2str(filterFunctions{index}), ' - Fixed Image']);
 
-    subplot(2, 2, 4);
+    subplot(1, 2, 2); % Second plot: FFT of Fixed Image
     imshow(magnitudeFixedImage, []);
     title([func2str(filterFunctions{index}), ' - FFT of Fixed Image']);
 endfor
