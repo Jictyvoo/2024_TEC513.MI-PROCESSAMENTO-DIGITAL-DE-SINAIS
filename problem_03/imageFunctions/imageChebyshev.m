@@ -1,12 +1,12 @@
 function [fixedImage, imageFreqSpectrum, cleanSpectrum, H, W] = imageChebyshev(imageData)
     % Normalize frequencies for filter design
-    freqRange = 10;
+    freqRange = 1;
     fs = 256;
     % Compute the frequency spectrum of the image data
     imageFreqSpectrum = fftshift(fft2(imageData));
     [Wp, Ws, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs, freqRange);
 
-    Rp = 0.1; % Passband ripple in dB
+    Rp = 1; % Passband ripple in dB
     Rs = 60; % Stopband attenuation in dB
 
     % Determine the optimal filter order and cutoff frequency
