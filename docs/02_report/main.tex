@@ -44,43 +44,43 @@
 
 \begin{document}
 
-   \makeatletter
-    \newcommand{\linebreakand}{%
-      \end{@IEEEauthorhalign}
-      \hfill\mbox{}\par
-      \mbox{}\hfill\begin{@IEEEauthorhalign}
-    }
-    \makeatother
+\makeatletter
+\newcommand{\linebreakand}{%
+    \end{@IEEEauthorhalign}
+    \hfill\mbox{}\par
+    \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
 
-\title{Problema 1: Análise Matemática Comparativa da Amostragem de Sinais Analógicos\\
+\title{Problema 2: Implementação da Conversão Analógico-Digital (AD) de n bits\\
 }
 
 \author{
-\IEEEauthorblockN{1\textsuperscript{st} João Victor Oliveira Couto}
-\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
-\textit{Universidade Estadual de Feira de Santana}\\
-Feira de Santana, Bahia, Brasil \\
-contact@jityvoo.dev}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Velder Soares}
-\IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
-\textit{Universidade Estadual de Feira de Santana}\\
-Feira de Santana, Bahia, Brasil \\
-velder.vas@gmail.com}
-\IEEEauthorblockN{}
-\IEEEauthorblockA{}
+    \IEEEauthorblockN{1\textsuperscript{st} João Victor Oliveira Couto}
+    \IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+        \textit{Universidade Estadual de Feira de Santana}\\
+        Feira de Santana, Bahia, Brasil \\
+        contact@jityvoo.dev}
+    \and
+    \IEEEauthorblockN{2\textsuperscript{nd} Velder Soares}
+    \IEEEauthorblockA{\textit{Estudante de Eng. de Computação} \\
+        \textit{Universidade Estadual de Feira de Santana}\\
+        Feira de Santana, Bahia, Brasil \\
+        velder.vas@gmail.com}
+    \IEEEauthorblockN{}
+    \IEEEauthorblockA{}
 }
 
 \maketitle
 
 \begin{abstract}
-Este relatório aborda a análise espectral de sinais discretos usando a Transformada Discreta de Fourier no Tempo (DTFT) e sua implementação prática através da FFT. O experimento foi realizado a partir de um sinal gerado e amostrado em diferentes taxas (50 kHz, 20 kHz, 10 kHz, 5 kHz e 2 kHz) utilizando um Arduino ATMega2560. O sinal amostrado foi transferido para o ambiente Octave, onde a FFT foi aplicada para calcular o espectro e observar as componentes de frequência. Além disso, janelas foram aplicadas ao sinal para minimizar o vazamento espectral e melhorar a definição do espectro. A resolução espectral foi analisada em função do número de amostras, destacando como esse fator influencia a precisão das componentes espectrais. Os resultados mostram que, mesmo com um número reduzido de amostras, as frequências principais do sinal ainda podem ser identificadas, possibilitando a reconstrução do sinal, desde que o critério de Nyquist seja respeitado. O relatório conclui que o número de amostras e o uso de janelas são determinantes para a qualidade da análise espectral.
+    Este relatório aborda a análise espectral de sinais discretos usando a Transformada Discreta de Fourier no Tempo (DTFT) e sua implementação prática através da FFT. O experimento foi realizado a partir de um sinal gerado e amostrado em diferentes taxas (50 kHz, 20 kHz, 10 kHz, 5 kHz e 2 kHz) utilizando um Arduino ATMega2560. O sinal amostrado foi transferido para o ambiente Octave, onde a FFT foi aplicada para calcular o espectro e observar as componentes de frequência. Além disso, janelas foram aplicadas ao sinal para minimizar o vazamento espectral e melhorar a definição do espectro. A resolução espectral foi analisada em função do número de amostras, destacando como esse fator influencia a precisão das componentes espectrais. Os resultados mostram que, mesmo com um número reduzido de amostras, as frequências principais do sinal ainda podem ser identificadas, possibilitando a reconstrução do sinal, desde que o critério de Nyquist seja respeitado. O relatório conclui que o número de amostras e o uso de janelas são determinantes para a qualidade da análise espectral.
 
 
 \end{abstract}
 
 \begin{IEEEkeywords}
-Conversão analógico-digital, Transformada de Fourier, Transformada Discreta de Fourier no Tempo
+    Conversão analógico-digital, Transformada de Fourier, Transformada Discreta de Fourier no Tempo
 \end{IEEEkeywords}
 
 \section{Introdução}
@@ -98,20 +98,20 @@ Conversão analógico-digital, Transformada de Fourier, Transformada Discreta de
 
 
 \begin{thebibliography}{00}
-\bibitem{b1} SANCA, A.S. TEC430 - PROCESSAMENTO DIGITAL DE SINAIS : Notas de Aula. Universidade Estadual De Feira De Santana - Departamento De Tecnologia (DTEC). 2024.
+    \bibitem{b1} SANCA, A.S. TEC430 - PROCESSAMENTO DIGITAL DE SINAIS : Notas de Aula. Universidade Estadual De Feira De Santana - Departamento De Tecnologia (DTEC). 2024.
 
-\bibitem{b2} Alan V. Oppenheim, Alan S. Willsky, and S. Hamid Nawab. Sinais e Sistemas. Prentice Hall, Sao Paulo, SP, Brasil, 3ª edição, 2012.
+    \bibitem{b2} Alan V. Oppenheim, Alan S. Willsky, and S. Hamid Nawab. Sinais e Sistemas. Prentice Hall, Sao Paulo, SP, Brasil, 3ª edição, 2012.
 
-\bibitem{proakis2006}
-Proakis, J. G., \& Manolakis, D. K. (2006). \textit{Digital Signal Processing: Principles, Algorithms, and Applications}. Pearson.
+    \bibitem{proakis2006}
+    Proakis, J. G., \& Manolakis, D. K. (2006). \textit{Digital Signal Processing: Principles, Algorithms, and Applications}. Pearson.
 
-\bibitem{cooley1965}
-Cooley, J. W., \& Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. \textit{Mathematics of Computation}, 19(90), 297-301.
+    \bibitem{cooley1965}
+    Cooley, J. W., \& Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. \textit{Mathematics of Computation}, 19(90), 297-301.
 
-\bibitem{lyons2010}
-Lyons, R. G. (2010). \textit{Understanding Digital Signal Processing}. Pearson.
+    \bibitem{lyons2010}
+    Lyons, R. G. (2010). \textit{Understanding Digital Signal Processing}. Pearson.
 
-\bibitem{b3} L W. Couch. Digital and Analog Communication Systems. Prentice Hall, University of Florida (Electrical and Computer Engineering), New Jersey, 2ª edição, 2007.
+    \bibitem{b3} L W. Couch. Digital and Analog Communication Systems. Prentice Hall, University of Florida (Electrical and Computer Engineering), New Jersey, 2ª edição, 2007.
 \end{thebibliography}
 
 
