@@ -1,0 +1,80 @@
+Para que pudéssemos aplicar corretamente o filtro, foi necessário o cálculo da ordem do mesmo.
+
+Foram definidos os seguintes parâmetros para o filtro \textit{Chebyshev} rejeita-faixa:
+
+\begin{enumerate}
+    \item Banda passante $\omega_p= [98, 102] \, \text{Hz}$
+    \item Banda de rejeição $\omega_s = [99, 101]\, \text{Hz}$
+    \item Atenuação da banda passante $\alpha_p = 0.1dB$
+    \item Atenuação da banda de rejeição $\alpha_s = 60dB$
+\end{enumerate}
+
+
+\subsubsection*{Executando o cálculo}
+Incialmente, devemos realizar o cálculo da ordem do filtro, que segue a fórmula:
+
+$$
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{10^{\alpha_s/10}- 1}{10^{\alpha_p/10}-1}}}}{\cosh^{-1}{\omega_s/\omega_p}} \right]
+$$
+
+
+Como as bandas de passante e rejeição são dadas como intervalos, devemos usar a frequência central de cada intervalo.
+
+\subsubsection*{Calculando o denominador}
+
+Quando as frequências são fornecidas em Hertz (Hz), elas precisam ser normalizadas em relação à frequência de Nyquist. A frequência de Nyquist é dada por $f_{\text{Nyquist}} = \frac{f_s}{2}$, onde $f_s$ é a taxa de amostragem.
+
+Neste caso, a taxa de amostragem $f_s$ é 256 Hz. Então, as frequências passante ($\omega_p$) e rejeição ($\omega_s$) precisam ser ajustadas dividindo cada valor pela frequência de Nyquist.
+
+A fórmula para normalizar as frequências $\omega_p$ e $\omega_s$ é:
+
+\begin{align*} \
+    \omega_p = \frac{\text{Freqüência de passante}}{128}                       \\
+    \omega_s = \frac{\text{Freqüência de rejeição}}{128}                       \\
+    \\
+    \text{Substituindo os valores}                                             \\
+    \\
+    \omega_p = \left[\frac{98}{128}, \frac{102}{128}\right] = [0.7656, 0.7969] \\
+    \omega_s = \left[\frac{99}{128}, \frac{101}{128}\right] = [0.7734, 0.7891]
+\end{align*}
+
+Em seguida, aplicamos a transformação tangente para essas frequências normalizadas, utilizando a seguinte fórmula:
+
+\begin{align*} \
+    \text{passb} = \tan\left(\frac{\pi \cdot \omega_p}{2}\right)         \\
+    \text{stopb} = \tan\left(\frac{\pi \cdot \omega_s}{2}\right)         \\
+    \\
+    \text{Aplicando a transformação tangente}                            \\
+    \\
+    \text{passb} = \tan\left(\frac{\pi \cdot [0.7656, 0.7969]}{2}\right) \\ \quad \Rightarrow \quad \text{passb} = [2.5924, 3.027] \\
+    \text{stopb} = \tan\left(\frac{\pi \cdot [0.7734, 0.7891]}{2}\right) \\ \quad \Rightarrow \quad \text{stopb} = [2.6903, 2.9068]
+\end{align*}
+
+
+Com as frequências passante ($\text{passb}$) e rejeição ($\text{stopb}$) transformadas, podemos calcular o valor de $\text{freqRatio}$ usando a fórmula:
+
+$$
+    \text{freqRatio} = \frac{\text{stopb}(1) \cdot (\text{passb}(1) - \text{passb}(2))}{\text{stopb}(1)^2 - \text{passb}(1) \cdot \text{passb}(2)}
+$$
+
+Substituindo os valores:
+
+\begin{align*} \
+    \text{freqRatio} = \frac{2.6903 \cdot (2.5924 - 3.027)}{2.6903^2 - 2.5924 \cdot 3.027} \\
+    \text{freqRatio} = \frac{2.6903 \cdot (-0.4346)}{7.2392 - 7.8541}                      \\
+    \text{freqRatio} = \frac{-1.1704}{-0.6149}                                             \\
+    \text{freqRatio} = 1.9176
+\end{align*}
+
+Este é o valor de $\text{freqRatio}$ calculado a partir das frequências normalizadas e transformadas.
+
+Agora, vamos substituir os valores conhecidos na fórmula para calcular a ordem do filtro:
+
+\begin{align*} \
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{10^{60/10}- 1}{10^{10^{-2}}-1}}}}{\cosh^{-1}{freqRatio}} \right] \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{\frac{999999}{0.02329299}}}}{\cosh^{-1}{freqRatio}} \right]            \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{\sqrt{42931324.0643}}}{\cosh^{-1}{1.9176}} \right]                           \\
+    n = \text{ceil} \left[ \frac{\cosh^{-1}{6552.19994081}}{\cosh^{-1}{1.9176}} \right]                                  \\n = \text{ceil} \left[ \frac{9.480703}{1.268021} \right]                                     \\
+    n = \text{ceil} [7.47677128376]                                                                                      \\
+    \therefore n = 8
+\end{align*}

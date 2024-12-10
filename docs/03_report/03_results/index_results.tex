@@ -1,4 +1,7 @@
-Nesta seção, apresentamos os resultados da análise espectral do sinal, focando na comparação de diferentes filtros aplicados tanto a sinais de áudio quanto a imagens para remoção de ruído. As figuras ~\ref{fig:audio_butterworth_spectrums} e ~\ref{fig:audio_elliptical_spectrums} mostram os espectros de frequências e as respostas em frequência dos filtros Butterworth e Elíptico em um áudio ruidoso.
+Nesta seção, apresentamos os resultados da análise espectral do sinal, focando na comparação de diferentes filtros aplicados tanto a sinais de áudio quanto a imagens para remoção de ruído.
+
+\subsection{Resultados da filtragem em sinal de áudio}
+As figuras ~\ref{fig:audio_butterworth_spectrums} e ~\ref{fig:audio_elliptical_spectrums} mostram os espectros de frequências e as respostas em frequência dos filtros Butterworth e Elíptico em um áudio ruidoso.
 
 \begin{figure}[H]
     \centering
@@ -36,10 +39,21 @@ O filtro \textbf{Elíptico}, diferente do Butterworth, apresenta uma atenuação
 
 O \textbf{diagrama de Bode} da figura \ref{fig:audio_elliptical_bode} ilustra como o filtro Elíptico proporciona uma atenuação mais agressiva em comparação com o filtro Butterworth. A magnitude da resposta apresenta oscilações, o que é característico dos filtros Elípticos. Estas oscilações são uma desvantagem, mas a eficiência na remoção de ruídos é superior, sendo mais eficaz para eliminar frequências específicas.
 
+\subsection{Resultados da filtragem em Imagem Digital}
+Como apresentado na Figura ~\ref{fig:image_original_plus_noise}, foi carregada uma imagem original 256x256 pixels, e aplicado um ruído senoidal na mesma.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{03_results/assets/image_original_plus_noise.png}
+    \caption{Imagem original e imagem ruidosa}
+    \label{fig:image_original_plus_noise}
+\end{figure}
+
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{03_results/assets/image_direct_remove_noise.png}
-    \caption{Imagem original e imagem após remoção direta de ruído.}
+    \caption{Imagem filtrada e seu espectro com a remoção direta do ruído.}
     \label{fig:image_direct_remove_noise}
 \end{figure}
 
@@ -48,7 +62,7 @@ A figura \ref{fig:image_direct_remove_noise} mostra o efeito de uma \textbf{remo
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{03_results/assets/image_butterworth.png}
-    \caption{Imagem original e imagem filtrada com o filtro Butterworth.}
+    \caption{Imagem filtrada e seu espectro com o filtro Butterworth.}
     \label{fig:image_butterworth}
 \end{figure}
 
@@ -57,7 +71,7 @@ Na figura \ref{fig:image_butterworth}, vemos a imagem original ao lado da imagem
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{03_results/assets/image_chebyshev.png}
-    \caption{Imagem original e imagem filtrada com o filtro Chebyshev.}
+    \caption{Imagem filtrada e seu espectro com o filtro Chebyshev.}
     \label{fig:image_chebyshev}
 \end{figure}
 
