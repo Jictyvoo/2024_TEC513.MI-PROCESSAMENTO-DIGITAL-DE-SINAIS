@@ -6,7 +6,7 @@ function [fixedAudio, audioSpectrum, cleanSpectrum, b, a] = audioButterworth(aud
 
     % Filter design parameters
     Rp = 1; % Passband ripple in dB
-    Rs = 40; % Stopband attenuation in dB
+    Rs = 20; % Stopband attenuation in dB
 
     % Ensure Wp and Ws are valid for butterworth filter design
     if Wp >= 1 || Ws >= 1
