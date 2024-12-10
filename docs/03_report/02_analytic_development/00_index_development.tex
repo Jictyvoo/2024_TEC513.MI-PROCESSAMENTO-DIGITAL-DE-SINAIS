@@ -1,3 +1,40 @@
+\subsection{Transformada de Fourier em 2 dimensões}
+
+A Transformada de Fourier em duas dimensões é uma extensão da Transformada de Fourier unidimensional, amplamente utilizada no processamento de sinais e imagens. Essa transformada permite converter um sinal definido no domínio espacial (como uma imagem, onde os pixels representam intensidades em coordenadas espaciais) para o domínio da frequência. No domínio da frequência, a transformada representa as componentes de frequência presentes na imagem, possibilitando a análise de características como padrões repetitivos, bordas e texturas.
+
+A Transformada de Fourier bidimensional é definida matematicamente como:
+
+$$
+    F(u,v) = \sum_{x=0}^{N-1} \sum_{y=0}^{M-1} f(x,y) \cdot e^{-j 2\pi \left(\frac{ux}{N} + \frac{vy}{M}\right)},
+$$
+
+onde:
+\begin{itemize}
+    \item $f(x, y)$ representa a intensidade do pixel na posição $(x, y)$ no domínio espacial;
+    \item $F(u, v)$ é o valor da Transformada de Fourier no ponto $(u, v)$ no domínio da frequência;
+    \item $N$ e $M$ são as dimensões da imagem em pixels (largura e altura, respectivamente);
+    \item $e^{-j 2\pi (\frac{ux}{N} + \frac{vy}{M})}$ é o fator de oscilação que determina como as frequências são calculadas.
+\end{itemize}
+
+Para imagens reais (ou seja, com valores de intensidade reais), a Transformada de Fourier possui uma simetria conjugada, dada por:
+
+$$
+    F(-u, -v) = \overline{F(u, v)},
+$$
+
+onde $\overline{F(u, v)}$ representa o conjugado complexo de $F(u, v)$. Essa simetria reduz a redundância do espectro de frequência e é uma propriedade útil para otimizar o processamento.
+
+Cada posição $(u, v)$ no espectro de frequência está associada a uma frequência radial, que pode ser calculada como:
+
+$$
+    D(u, v) = \sqrt{u^2 + v^2}.
+$$
+
+A frequência radial $D(u, v)$ está relacionada à distância do ponto $(u, v)$ em relação à origem do espectro de frequência, que corresponde à componente de frequência mais baixa (ou contínua) da imagem. As componentes de frequência mais altas, que correspondem a mudanças rápidas de intensidade na imagem (como bordas ou ruído), estão localizadas mais afastadas da origem no espectro.
+
+A Transformada de Fourier bidimensional é amplamente utilizada em tarefas como filtragem no domínio da frequência, compressão de imagens, remoção de ruído e análise de padrões frequenciais, sendo uma ferramenta essencial no processamento de imagens digitais.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Audio}
 De modo a realizar uma melhor comparação dos efeitos de filtragem de um áudio ruidoso, foram utilizados dois filtros distintos, ambos funcionando como passa-baixas. Esses filtros foram o \textit{Butterworth} e o \textit{Elíptico}.
 
