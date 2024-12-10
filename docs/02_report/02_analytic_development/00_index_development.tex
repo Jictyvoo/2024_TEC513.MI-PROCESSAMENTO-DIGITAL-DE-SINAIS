@@ -2,20 +2,20 @@
 
 A DTFT é uma extensão da transformada de Fourier para sinais discretos, convertendo um sinal no domínio do tempo em uma representação no domínio da frequência. Ela fornece uma descrição das componentes de frequência de um sinal amostrado e é amplamente utilizada em processamento digital de sinais (PDS). No entanto, a DTFT, como uma transformada contínua no domínio da frequência, é impraticável de calcular diretamente em sistemas digitais e, por isso, é frequentemente aproximada pela Transformada Discreta de Fourier (DFT).
 
-A DFT converte um sinal amostrado em um número finito de componentes de frequência, dividindo o sinal em \( N \) pontos uniformemente distribuídos no espectro, onde \( N \) é o número de amostras do sinal. Essa transformada é definida matematicamente como:
+A DFT converte um sinal amostrado em um número finito de componentes de frequência, dividindo o sinal em $N$ pontos uniformemente distribuídos no espectro, onde $N$ é o número de amostras do sinal. Essa transformada é definida matematicamente como:
 
-\[
+$$
 X[k] = \sum_{n=0}^{N-1} x[n] \cdot e^{-j \frac{2 \pi k n}{N}}, \quad k = 0, 1, \dots, N-1
-\]
+$$
 
-onde \( X[k] \) representa as componentes de frequência e \( x[n] \) são os valores do sinal amostrado. Essa expressão calcula diretamente cada ponto de frequência, mas é computacionalmente intensiva quando \( N \) é grande, pois exige \( O(N^2) \) operações.
+onde $X[k]$ representa as componentes de frequência e $x[n]$ são os valores do sinal amostrado. Essa expressão calcula diretamente cada ponto de frequência, mas é computacionalmente intensiva quando $N$ é grande, pois exige $O(N^2)$ operações.
 
 \subsection{Propriedades da DTFT e DFT}
 
 Algumas propriedades importantes da DTFT e DFT incluem:
 
 \begin{itemize}
-    \item \textbf{Periodicidade}: Ambas são periódicas no domínio da frequência. A DTFT é uma função contínua e periódica com período \( 2\pi \), enquanto a DFT tem periodicidade de \( N \) pontos no domínio discreto.
+    \item \textbf{Periodicidade}: Ambas são periódicas no domínio da frequência. A DTFT é uma função contínua e periódica com período $2\pi$, enquanto a DFT tem periodicidade de $N$ pontos no domínio discreto.
     \item \textbf{Simetria}: Para sinais reais, a DTFT e a DFT produzem espectros simétricos em torno da frequência zero, simplificando a análise ao focar apenas em metade do espectro.
     \item \textbf{Linearidade}: Ambas são transformadas lineares, permitindo a combinação de sinais transformados.
     \item \textbf{Propriedade da Convolução}: A convolução no domínio do tempo corresponde a uma multiplicação no domínio da frequência, útil para analisar sistemas lineares e invariantes no tempo.
@@ -23,7 +23,7 @@ Algumas propriedades importantes da DTFT e DFT incluem:
 
 \subsection{FFT e Implementação Computacional}
 
-A Transformada Rápida de Fourier (FFT) é um algoritmo que calcula a DFT de forma eficiente, reduzindo a complexidade computacional para \( O(N \log N) \). A FFT divide a DFT em operações menores, usando recursivamente a simetria e periodicidade dos exponenciais complexos. Essa abordagem é especialmente útil em sinais com número de amostras que são potências de dois, permitindo uma subdivisão rápida e precisa dos cálculos necessários para transformar o sinal.
+A Transformada Rápida de Fourier (FFT) é um algoritmo que calcula a DFT de forma eficiente, reduzindo a complexidade computacional para $O(N \log N)$. A FFT divide a DFT em operações menores, usando recursivamente a simetria e periodicidade dos exponenciais complexos. Essa abordagem é especialmente útil em sinais com número de amostras que são potências de dois, permitindo uma subdivisão rápida e precisa dos cálculos necessários para transformar o sinal.
 
 No ambiente computacional, como no Octave, a FFT é aplicada diretamente a sinais discretos, produzindo uma aproximação da DTFT. A resolução e precisão do espectro dependem do número de amostras e da frequência de amostragem, que devem ser adequadamente escolhidos para garantir uma representação fiel do sinal original sem aliasing.
 
