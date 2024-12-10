@@ -3,6 +3,9 @@
   "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.synctex.afterBuild.enabled": true,
   "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "files.insertFinalNewline": true,
   "latex-workshop.latex.tools": [
     {
       "name": "latexmk",
