@@ -1,0 +1,23 @@
+Foram definidos os seguintes parâmetros para o filtro \textit{Butterworth} rejeita-faixa:
+
+\begin{itemize}
+    \item Frequências de passagem: $f_p = [98, 106] \, \text{Hz}$;
+    \item Frequências de rejeição: $f_s = [99, 101] \, \text{Hz}$;
+    \item Ondulação na banda de passagem: $R_p = 0.1 \, \text{dB}$;
+    \item Atenuação mínima na banda de rejeição: $R_s = 20 \, \text{dB}$;
+    \item Frequência de amostragem: $F_s = 256 \, \text{Hz}$.
+\end{itemize}
+
+\subsubsection*{Cálculo da Ordem}
+Seguindo a \textbf{Equação ~\ref{eq:butterworth_n_formula}} definida previamente, podemos realizar os cálculos da ordem:
+
+\begin{align*} \
+    n = \left[ \frac{\log{\frac{10^{20/10}- 1}{10^{10^{-2}}-1}}}{2\log{(\text{freqRatio})}} \right] \\
+    %n = \left[ \frac{\log{\frac{100- 1}{1.02329299228-1}}}{2\log{(\text{freqRatio})}} \right]                                  \\
+    n = \left[ \frac{\log{\frac{99}{0.02329299228}}}{2\log{1.9525}} \right]                         \\
+    %n = \left[ \frac{\log{4250.2053}}{2\log{1.9525}} \right]                                                    \\
+    n = \left[ \frac{3.6284}{0.58118} \right]                                                       \\
+    n = 6.243                                                                                       \\
+    \\
+    \therefore n = 7
+\end{align*}

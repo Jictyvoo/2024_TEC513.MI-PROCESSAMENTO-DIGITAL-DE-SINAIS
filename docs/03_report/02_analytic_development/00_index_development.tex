@@ -16,14 +16,6 @@ onde:
     \item $e^{-j 2\pi (\frac{ux}{N} + \frac{vy}{M})}$ é o fator de oscilação que determina como as frequências são calculadas.
 \end{itemize}
 
-Para imagens reais (ou seja, com valores de intensidade reais), a Transformada de Fourier possui uma simetria conjugada, dada por:
-
-$$
-    F(-u, -v) = \overline{F(u, v)},
-$$
-
-onde $\overline{F(u, v)}$ representa o conjugado complexo de $F(u, v)$. Essa simetria reduz a redundância do espectro de frequência e é uma propriedade útil para otimizar o processamento.
-
 Cada posição $(u, v)$ no espectro de frequência está associada a uma frequência radial, que pode ser calculada como:
 
 $$
@@ -46,6 +38,12 @@ Nessa seção serão apresentados cálculos de ordem e função de transferênci
 \subsubsection{Filtro Elíptico}
 \input{02_analytic_development/02_audio_elliptical}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Imagem}
+
+
 \subsubsection{Filtro Chebyshev}
 \input{02_analytic_development/03_image_chebyshev.tex}
+
+\subsubsection{Filtro Butterworth: rejeita-faixa}
+\input{02_analytic_development/04_image_butterworth}

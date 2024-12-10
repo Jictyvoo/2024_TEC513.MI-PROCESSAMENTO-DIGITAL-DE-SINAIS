@@ -13,10 +13,12 @@ Foram definidos os seguintes parâmetros para o filtro \textit{Butterworth} pass
 \subsubsection*{Executando o cálculo}
 Incialmente, devemos realizar o cálculo da ordem do filtro, que segue a fórmula:
 
-$$
-    n = \left[ \frac{\log{\frac{10^{\alpha_s/10}- 1}{10^{\alpha_p/10}-1}}}{2\log{\omega_s/\omega_p}} \right]
-$$
+\begin{align} \
+    n = \left[ \frac{\log{\frac{10^{\alpha_s/10}- 1}{10^{\alpha_p/10}-1}}}{2\log{\omega_s/\omega_p}} \right] \\
+    \label{eq:butterworth_n_formula}
+\end{align}
 
+Substituindo-se os valores, na fórmula, temos que:
 \begin{align*} \
     n = \left[ \frac{\log{\frac{10^{20/10}- 1}{10^{1/10}-1}}}{2\log{(2\pi \cdot2000/2\pi\cdot 1000)}} \right] \\
     n = \left[ \frac{\log{\frac{100- 1}{1.25892541179-1}}}{2\log{2}} \right]                                  \\
@@ -36,17 +38,18 @@ $$
 
 Como na fórmula, é preciso o valor de $\epsilon$, que é calculado da seguinte forma:
 
-$$
-    \epsilon = \sqrt{10^{A_{max}/10}-1}
-$$
+\begin{align} \
+    \epsilon = \sqrt{10^{A_{max}/10}-1} \
+    \label{eq:butterworth_epsilon_calculation} \
+\end{align}
 
 Considerando que o nosso $A_{max}=1\, \text{dB}$, temos que:
 
-\begin{align} \
+\begin{align*} \
     \epsilon = \sqrt{10^{1/10}-1}   \\
     \epsilon = \sqrt{0.25892541179} \\
     \therefore \epsilon = 0.509
-\end{align}
+\end{align*}
 
 Agora, aplicando o valor de $\epsilon$ e $n$ na fórmula da função de transferência, temos:
 
