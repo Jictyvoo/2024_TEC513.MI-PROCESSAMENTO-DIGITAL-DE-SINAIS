@@ -24,12 +24,13 @@ function [fn] = noiseImage(plotFigureID)
         figure(plotFigureID);
         Maximo = max(max(f));
         colormap(gray(Maximo));
+
         subplot(1, 2, 1);
-        image(f);
+        imshow(uint8(f), []);
         title('Imagem original');
 
         subplot(1, 2, 2);
-        image(fn);
+        imshow(uint8(fn), []);
         title('Imagem ruidosa');
     endif
 endfunction

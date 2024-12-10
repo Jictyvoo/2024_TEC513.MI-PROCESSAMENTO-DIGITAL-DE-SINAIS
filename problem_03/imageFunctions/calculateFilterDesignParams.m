@@ -1,7 +1,4 @@
-function [Wp, Ws, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs)
-    % Normalize frequencies for filter design
-    freqRange = 10; % Frequency range for the filter design
-
+function [Wp, Ws, radialDistance] = calculateFilterDesignParams(imageFreqSpectrum, fs, freqRange)
     % Calculate the central frequency and radial distance
     [centralFrequency, radialDistance] = calculateCentralFreq(imageFreqSpectrum, fs);
 

@@ -2,7 +2,7 @@ setup;
 addpath('./imageFunctions');
 
 % Load and generate the noise image
-image = noiseImage(3);
+image = noiseImage(4);
 
 % Known noise frequency as a fraction of the image width
 noiseFrequency = 100 / size(image, 2);
